@@ -24,7 +24,6 @@ class ToDoApp {
     }
 
     createHTML() {
-        const {containerElement} = this;
         /**
          * TODO: refactor variables creation logic. / TODO: review
          */
@@ -49,7 +48,6 @@ class ToDoApp {
         inputWrapper.appendChild(input);
         appWrapper.appendChild(inputWrapper);
         appWrapper.appendChild(listWrapper);
-        containerElement.appendChild(appWrapper);
     }
 
     onInputEntered(title) {
@@ -101,7 +99,16 @@ class ToDoApp {
         }
     }
 
+    start() {
+        this.containerElement.appendChild(this.appWrapper);
+    }
 
+    /**
+     * TODO: review
+     */
+    destroy() {
+        this.appWrapper.remove();
+    }
 
     /**
      * TODO: try to separate concerns
