@@ -24,3 +24,11 @@ function guidGenerator() {
     };
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
+
+function addBtnListener(btn, fn) {
+    this.addEventListener('keypress', (e) => {
+        if(e.key === btn) {
+            fn(e);
+        }
+    })
+}
