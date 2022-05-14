@@ -8,20 +8,26 @@ class ToDoApp {
     }
 
     init() {
-        const { containerElement } = this;
+        const {containerElement} = this;
 
         /**
-         * TODO: refactor variables creation logic.
+         * TODO: refactor variables creation logic. / TODO: review
          */
-        this.appWrapper = createEl('div', {className: 'wrapper flex flex-column align-center', id: 'container'});
-        this.listWrapper = createEl('div', {className: 'list_cont flex flex-column', id: 'list_cont'});
-        this.inputWrapper = createEl('div', {className: 'input_cont flex" id="input_cont', id: 'input_cont'});
-
-        const appWrapper = this.appWrapper;
-        const listWrapper = this.listWrapper;
-        const inputWrapper = this.inputWrapper;
+        const appWrapper = createEl('div', {className: 'wrapper flex flex-column align-center', id: 'container'});
+        const listWrapper = createEl('div', {className: 'list_cont flex flex-column', id: 'list_cont'});
+        const inputWrapper = createEl('div', {className: 'input_cont flex" id="input_cont', id: 'input_cont'});
         const checkAllBtn = createEl('i', {className: 'lv_icon--arrow'});
-        const input = createEl('input', {id: 'input', type: 'text', autofocus: true, autocomplete: 'off', placeholder: 'What needs to be done?'});
+        const input = createEl('input', {
+            id: 'input',
+            type: 'text',
+            autofocus: true,
+            autocomplete: 'off',
+            placeholder: 'What needs to be done?'
+        });
+
+        this.appWrapper = appWrapper;
+        this.listWrapper = listWrapper;
+        this.inputWrapper = inputWrapper;
 
         checkAllBtn.addEventListener('click', () => {
             this.completeAll();
@@ -30,7 +36,7 @@ class ToDoApp {
             /**
              * TODO: try to optimise
              */
-            if(e.key === 'Enter' && e.target.value.length > 0) {
+            if (e.key === 'Enter' && e.target.value.length > 0) {
                 this.createItem(e.target.value);
                 this.updateList();
                 e.target.value = '';
@@ -55,24 +61,27 @@ class ToDoApp {
      */
     createItem(title) {
         // const todoItem = new ToDoItem(title);
-        const newItem = { title, id: guidGenerator(), done: false };
+        const newItem = {title, id: guidGenerator(), done: false};
         /**
          * TODO: localStorage service
          * @type {any|{sortBy: number, list: *[]}}
          */
-        const ToDoList = localStorageHasItem('ToDoList') ? JSON.parse(localStorage.getItem('ToDoList')) : { list: [], sortBy: 1 };
+        const ToDoList = localStorageHasItem('ToDoList') ? JSON.parse(localStorage.getItem('ToDoList')) : {
+            list: [],
+            sortBy: 1
+        };
 
         ToDoList.list.push(newItem);
         saveInLocalStorage('ToDoList', ToDoList);
     }
 
     updateList() {
-        const { listWrapper } = this;
+        const {listWrapper} = this;
 
         listWrapper.innerHTML = "";
         const inputArrow = this.inputWrapper.querySelector('.lv_icon--arrow');
 
-        if(localStorageHasItem('ToDoList')) {
+        if (localStorageHasItem('ToDoList')) {
             let listItems;
             const ToDoList = getParsedDataFromStorage('ToDoList');
             const activeItemsCount = ToDoList.list.filter(i => i.done === false).length;
@@ -80,7 +89,7 @@ class ToDoApp {
             const counterTxt = activeItemsCount === 1 ? 'item left.' : 'items left.';
             const sortBy = ToDoList.sortBy;
 
-            switch(+sortBy) {
+            switch (+sortBy) {
                 case 1:
                     listItems = ToDoList.list;
                     break;
@@ -128,26 +137,26 @@ class ToDoApp {
                 listWrapper.appendChild(listItem);
             });
 
-             if(!this.appWrapper.querySelector('#footer_cont')) {
+            if (!this.appWrapper.querySelector('#footer_cont')) {
                 this.appWrapper.appendChild(this.createFooter());
             }
-            if(inputArrow.className.includes('active') && !allItemsChecked) {
+            if (inputArrow.className.includes('active') && !allItemsChecked) {
                 inputArrow.classList.remove('active');
-            } else if(!inputArrow.className.includes('active') && allItemsChecked) {
+            } else if (!inputArrow.className.includes('active') && allItemsChecked) {
                 inputArrow.classList.add('active');
             }
 
             this.appWrapper.querySelector('#itemsCount').innerText = `${activeItemsCount} ${counterTxt}`;
 
             this.appWrapper.querySelector('.footer_btn_cont').childNodes.forEach(b => {
-                if(b.dataset.index !== sortBy && b.className.includes('active')) {
+                if (b.dataset.index !== sortBy && b.className.includes('active')) {
                     b.classList.remove('active');
                 } else if (b.dataset.index === sortBy && !b.className.includes('active')) {
                     b.classList.add('active');
                 }
             })
         } else {
-            if(inputArrow.className.includes('active')) {
+            if (inputArrow.className.includes('active')) {
                 inputArrow.classList.remove('active');
             }
         }
@@ -159,7 +168,7 @@ class ToDoApp {
         const input = createEl('input', {type: 'text', className: 'list_item_edit_input', value: title});
         el.parentElement.appendChild(input);
         input.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') {
+            if (e.key === 'Enter') {
                 el.innerText = e.target.value;
                 ToDoList.list = ToDoList.list.map(i => {
                     if (i.id === el.parentElement.id) {
@@ -176,7 +185,7 @@ class ToDoApp {
     cancel(id) {
         const ToDoList = getParsedDataFromStorage('ToDoList');
         ToDoList.list = ToDoList.list.filter(i => i.id !== id);
-        if(ToDoList.list.length > 0) {
+        if (ToDoList.list.length > 0) {
             saveInLocalStorage('ToDoList', ToDoList);
         } else {
             localStorage.clear();
@@ -188,7 +197,7 @@ class ToDoApp {
     onComplete(id) {
         const ToDoList = getParsedDataFromStorage('ToDoList');
         ToDoList.list.map(i => {
-            if(i.id === id) {
+            if (i.id === id) {
                 i.done = !i.done;
             }
             return i;
@@ -197,7 +206,7 @@ class ToDoApp {
     }
 
     completeAll() {
-        if(localStorageHasItem('ToDoList')) {
+        if (localStorageHasItem('ToDoList')) {
             const data = getParsedDataFromStorage('ToDoList');
             const allChecked = data.list.filter(i => i.done === true).length === data.list.length;
 
@@ -238,7 +247,7 @@ class ToDoApp {
                 ToDoList.sortBy = e.target.dataset.index;
                 saveInLocalStorage('ToDoList', ToDoList);
                 e.target.parentElement.childNodes.forEach(b => {
-                    if(b.className.includes('active')) {
+                    if (b.className.includes('active')) {
                         b.classList.remove('active');
                     }
                 });
