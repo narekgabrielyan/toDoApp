@@ -4,12 +4,45 @@
 class ToDoApp {
     constructor(containerElement) {
         this.containerElement = containerElement;
+        this.store = [];
         this.init();
     }
 
     init() {
-        const {containerElement} = this;
+        /**
+         * TODO: try to move
+         */
+        window.addEventListener('load', () => this.updateList());
 
+        // this.updateList();
+
+        this.createHTML();
+        this.addListeners();
+    }
+
+    addListeners() {
+        addBtnListener.call(this.input, 'Enter', (e) => {
+            this.createItem(e.target.value);
+            e.target.value = "";
+            this.updateList();
+        });
+        this.checkAllBtn.addEventListener('click', () => this.onToggleAllItems());
+    }
+
+    onToggleAllItems() {
+        let itemsCount = this.store.length;
+        if (itemsCount) {
+            let doneItems = this.store.filter(item => item.params.done);
+            if (doneItems.length && doneItems.length < itemsCount) {
+                doneItems.forEach(item => item.onToggle());
+            } else {
+                this.store.forEach(item => item.onToggle());
+            }
+        }
+    }
+
+    createHTML() {
+        const {containerElement} = this;
         /**
          * TODO: refactor variables creation logic. / TODO: review
          */
@@ -28,31 +61,13 @@ class ToDoApp {
         this.appWrapper = appWrapper;
         this.listWrapper = listWrapper;
         this.inputWrapper = inputWrapper;
-
-        checkAllBtn.addEventListener('click', () => {
-            this.completeAll();
-        })
-        input.addEventListener('keypress', (e) => {
-            /**
-             * TODO: try to optimise
-             */
-            if (e.key === 'Enter' && e.target.value.length > 0) {
-                this.createItem(e.target.value);
-                this.updateList();
-                e.target.value = '';
-            }
-        });
+        this.checkAllBtn = checkAllBtn;
+        this.input = input;
         inputWrapper.appendChild(checkAllBtn);
-
-        /**
-         * TODO: try to move
-         */
-        window.addEventListener('load', () => this.updateList());
         inputWrapper.appendChild(input);
         appWrapper.appendChild(inputWrapper);
         appWrapper.appendChild(listWrapper);
         containerElement.appendChild(appWrapper);
-        // this.updateList();
     }
 
     /**
@@ -60,105 +75,109 @@ class ToDoApp {
      * @param title
      */
     createItem(title) {
-        // const todoItem = new ToDoItem(title);
-        const newItem = {title, id: guidGenerator(), done: false};
+        const todoItem = new ToDoItem(title);
         /**
          * TODO: localStorage service
          * @type {any|{sortBy: number, list: *[]}}
          */
-        const ToDoList = localStorageHasItem('ToDoList') ? JSON.parse(localStorage.getItem('ToDoList')) : {
-            list: [],
-            sortBy: 1
-        };
+        // const ToDoList = localStorageHasItem('ToDoList') ? JSON.parse(localStorage.getItem('ToDoList')) : {
+        //     list: [],
+        //     sortBy: 1
+        // };
 
-        ToDoList.list.push(newItem);
-        saveInLocalStorage('ToDoList', ToDoList);
+        // ToDoList.list.push(newItem);
+        // saveInLocalStorage('ToDoList', ToDoList);
+
+        this.store.push(todoItem);
     }
 
     updateList() {
-        const {listWrapper} = this;
+        const {store, listWrapper} = this;
 
         listWrapper.innerHTML = "";
-        const inputArrow = this.inputWrapper.querySelector('.lv_icon--arrow');
-
-        if (localStorageHasItem('ToDoList')) {
-            let listItems;
-            const ToDoList = getParsedDataFromStorage('ToDoList');
-            const activeItemsCount = ToDoList.list.filter(i => i.done === false).length;
-            const allItemsChecked = ToDoList.list.filter(i => i.done === true).length === ToDoList.list.length;
-            const counterTxt = activeItemsCount === 1 ? 'item left.' : 'items left.';
-            const sortBy = ToDoList.sortBy;
-
-            switch (+sortBy) {
-                case 1:
-                    listItems = ToDoList.list;
-                    break;
-                case 2:
-                    listItems = ToDoList.list.filter(i => i.done === false);
-                    break;
-                case 3:
-                    listItems = ToDoList.list.filter(i => i.done === true);
-                    break;
-                default:
-                    listItems = ToDoList.list;
-            }
-
-            listItems.forEach(item => {
-                /**
-                 * TODO: refactor name
-                 * @type {any}
-                 */
-                const listItem = createEl('div', {id: item.id, className: 'list_item'});
-                const checkBoxId = guidGenerator();
-                const itemCheckBox = createEl('input', {type: 'checkbox', id: checkBoxId, checked: item.done});
-                const labelCn = item.done ? 'lv_icon--checked' : 'lv_icon--unchecked';
-                const itemLabel = createEl('label', {className: labelCn, htmlFor: checkBoxId});
-                const itemTxt = createEl('span', {textContent: item.title});
-                const itemCancelBtn = createEl('button', {className: 'item_cancel lv_icon--cancel'});
-
-                itemCancelBtn.onclick = (e) => {
-                    const parentId = e.target.parentElement.id;
-                    this.cancel(parentId);
-                }
-                itemCheckBox.onchange = (e) => {
-                    const parentId = e.target.parentElement.id;
-                    this.onComplete(parentId);
-                    this.updateList();
-                };
-                itemTxt.ondblclick = (e) => {
-                    const element = e.target;
-                    this.edit(element);
-                };
-
-                listItem.appendChild(itemCheckBox);
-                listItem.appendChild(itemLabel);
-                listItem.appendChild(itemTxt);
-                listItem.appendChild(itemCancelBtn);
-                listWrapper.appendChild(listItem);
-            });
-
-            if (!this.appWrapper.querySelector('#footer_cont')) {
-                this.appWrapper.appendChild(this.createFooter());
-            }
-            if (inputArrow.className.includes('active') && !allItemsChecked) {
-                inputArrow.classList.remove('active');
-            } else if (!inputArrow.className.includes('active') && allItemsChecked) {
-                inputArrow.classList.add('active');
-            }
-
-            this.appWrapper.querySelector('#itemsCount').innerText = `${activeItemsCount} ${counterTxt}`;
-
-            this.appWrapper.querySelector('.footer_btn_cont').childNodes.forEach(b => {
-                if (b.dataset.index !== sortBy && b.className.includes('active')) {
-                    b.classList.remove('active');
-                } else if (b.dataset.index === sortBy && !b.className.includes('active')) {
-                    b.classList.add('active');
-                }
-            })
-        } else {
-            if (inputArrow.className.includes('active')) {
-                inputArrow.classList.remove('active');
-            }
+        // const inputArrow = this.inputWrapper.querySelector('.lv_icon--arrow');
+        //
+        // if (localStorageHasItem('ToDoList')) {
+        //     let listItems;
+        //     const ToDoList = getParsedDataFromStorage('ToDoList');
+        //     const activeItemsCount = ToDoList.list.filter(i => i.done === false).length;
+        //     const allItemsChecked = ToDoList.list.filter(i => i.done === true).length === ToDoList.list.length;
+        //     const counterTxt = activeItemsCount === 1 ? 'item left.' : 'items left.';
+        //     const sortBy = ToDoList.sortBy;
+        //
+        //     switch (+sortBy) {
+        //         case 1:
+        //             listItems = ToDoList.list;
+        //             break;
+        //         case 2:
+        //             listItems = ToDoList.list.filter(i => i.done === false);
+        //             break;
+        //         case 3:
+        //             listItems = ToDoList.list.filter(i => i.done === true);
+        //             break;
+        //         default:
+        //             listItems = ToDoList.list;
+        //     }
+        //
+        //     listItems.forEach(item => {
+        //         /**
+        //          * TODO: refactor name
+        //          * @type {any}
+        //          */
+        //         const listItem = createEl('div', {id: item.id, className: 'list_item'});
+        //         const checkBoxId = guidGenerator();
+        //         const itemCheckBox = createEl('input', {type: 'checkbox', id: checkBoxId, checked: item.done});
+        //         const labelCn = item.done ? 'lv_icon--checked' : 'lv_icon--unchecked';
+        //         const itemLabel = createEl('label', {className: labelCn, htmlFor: checkBoxId});
+        //         const itemTxt = createEl('span', {textContent: item.title});
+        //         const itemCancelBtn = createEl('button', {className: 'item_cancel lv_icon--cancel'});
+        //
+        //         itemCancelBtn.onclick = (e) => {
+        //             const parentId = e.target.parentElement.id;
+        //             this.cancel(parentId);
+        //         }
+        //         itemCheckBox.onchange = (e) => {
+        //             const parentId = e.target.parentElement.id;
+        //             this.onComplete(parentId);
+        //             this.updateList();
+        //         };
+        //         itemTxt.ondblclick = (e) => {
+        //             const element = e.target;
+        //             this.edit(element);
+        //         };
+        //
+        //         listItem.appendChild(itemCheckBox);
+        //         listItem.appendChild(itemLabel);
+        //         listItem.appendChild(itemTxt);
+        //         listItem.appendChild(itemCancelBtn);
+        //         listWrapper.appendChild(listItem);
+        //     });
+        //
+        //     if (!this.appWrapper.querySelector('#footer_cont')) {
+        //         this.appWrapper.appendChild(this.createFooter());
+        //     }
+        //     if (inputArrow.className.includes('active') && !allItemsChecked) {
+        //         inputArrow.classList.remove('active');
+        //     } else if (!inputArrow.className.includes('active') && allItemsChecked) {
+        //         inputArrow.classList.add('active');
+        //     }
+        //
+        //     this.appWrapper.querySelector('#itemsCount').innerText = `${activeItemsCount} ${counterTxt}`;
+        //
+        //     this.appWrapper.querySelector('.footer_btn_cont').childNodes.forEach(b => {
+        //         if (b.dataset.index !== sortBy && b.className.includes('active')) {
+        //             b.classList.remove('active');
+        //         } else if (b.dataset.index === sortBy && !b.className.includes('active')) {
+        //             b.classList.add('active');
+        //         }
+        //     })
+        // } else {
+        //     if (inputArrow.className.includes('active')) {
+        //         inputArrow.classList.remove('active');
+        //     }
+        // }
+        if(store.length) {
+            store.forEach(item => listWrapper.appendChild(item.html.wrapper));
         }
     }
 
@@ -264,46 +283,42 @@ class ToDoApp {
 }
 
 class ToDoItem {
-    constructor(value, container) {
-        this.container = container;
-        this.params = {id: guidGenerator(), value, done:false}
+    constructor(value) {
+        this.params = {id: guidGenerator(), value, done: false}
         this.init();
     }
+
     init() {
         this.createHTML();
-        this.createItem();
         this.addListeners();
     }
+
     createHTML() {
         const wrapper = createEl('div', {className: 'list_item'});
         const checkInput = createEl('input', {type: 'checkbox', id: guidGenerator()});
         const checkLabel = createEl('label', {className: 'lv_icon--unchecked', for: checkInput.id});
         const titleSpan = createEl('span', {innerText: this.params.value});
-        const cancelBtn = createEl('button', {className: 'lv_icon--cancel'});
+        const cancelBtn = createEl('button', {className: 'lv_icon--cancel item_cancel'});
 
         this.html = {wrapper, checkInput, checkLabel, titleSpan, cancelBtn};
 
         wrapper.append(checkInput, checkLabel, titleSpan, cancelBtn);
     }
-    createItem() {
-        this.container.appendChild(this.html.wrapper);
-    }
+
     addListeners() {
-        this.html.checkLabel.addEventListener('click', () => {
-            this.onToggle()
-        })
-        this.html.cancelBtn.addEventListener('click', () => {
-            this.onCancel();
-        })
+        this.html.checkLabel.addEventListener('click', () => this.onToggle());
+        this.html.cancelBtn.addEventListener('click', () => this.onCancel());
     }
+
     onToggle() {
         this.params.done = !this.params.done;
-        if(this.html.wrapper.classList.contains('list_item--done')) {
+        if (this.html.wrapper.classList.contains('list_item--done')) {
             this.html.wrapper.classList.remove('list_item--done');
         } else {
             this.html.wrapper.classList.add('list_item--done');
         }
     }
+
     onCancel() {
         this.html.wrapper.remove();
     }
