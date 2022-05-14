@@ -263,3 +263,48 @@ class ToDoApp {
     }
 }
 
+class ToDoItem {
+    constructor(value, container) {
+        this.container = container;
+        this.params = {id: guidGenerator(), value, done:false}
+        this.init();
+    }
+    init() {
+        this.createHTML();
+        this.createItem();
+        this.addListeners();
+    }
+    createHTML() {
+        const wrapper = createEl('div', {className: 'list_item'});
+        const checkInput = createEl('input', {type: 'checkbox', id: guidGenerator()});
+        const checkLabel = createEl('label', {className: 'lv_icon--unchecked', for: checkInput.id});
+        const titleSpan = createEl('span', {innerText: this.params.value});
+        const cancelBtn = createEl('button', {className: 'lv_icon--cancel'});
+
+        this.html = {wrapper, checkInput, checkLabel, titleSpan, cancelBtn};
+
+        wrapper.append(checkInput, checkLabel, titleSpan, cancelBtn);
+    }
+    createItem() {
+        this.container.appendChild(this.html.wrapper);
+    }
+    addListeners() {
+        this.html.checkLabel.addEventListener('click', () => {
+            this.onToggle()
+        })
+        this.html.cancelBtn.addEventListener('click', () => {
+            this.onCancel();
+        })
+    }
+    onToggle() {
+        this.params.done = !this.params.done;
+        if(this.html.wrapper.classList.contains('list_item--done')) {
+            this.html.wrapper.classList.remove('list_item--done');
+        } else {
+            this.html.wrapper.classList.add('list_item--done');
+        }
+    }
+    onCancel() {
+        this.html.wrapper.remove();
+    }
+}
