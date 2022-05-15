@@ -5,10 +5,7 @@ class ToDoApp {
     constructor(containerElement) {
         this.containerElement = containerElement;
         this.html = {};
-        this.store = {
-            todoList: [],
-            activeList: []
-        };
+        this.todoList = [];
         this.filter = 'all';
         this.init();
     }
@@ -17,7 +14,7 @@ class ToDoApp {
         /**
          * TODO: try to move
          */
-        window.addEventListener('load', () => this.renderList());
+        // window.addEventListener('load', () => this.renderList());
 
         this.createHTML();
 
@@ -27,7 +24,7 @@ class ToDoApp {
         });
         this.html.checkAllBtn.addEventListener('click', () => this.toggleAllItems());
 
-        this.updateList();
+        this.renderList();
     }
 
     createHTML() {
@@ -72,7 +69,7 @@ class ToDoApp {
             const newItem = this.createItem(title);
             this.addItemActions(newItem);
             this.addItem(newItem);
-            this.updateList();
+            this.renderList();
         }
     }
 
@@ -81,11 +78,11 @@ class ToDoApp {
     }
 
     addItem(item) {
-        this.store.todoList.push(item);
+        this.todoList.push(item);
     }
 
     removeItem(item) {
-        this.store.todoList = this.store.todoList.filter(i => i !== item);
+        this.todoList = this.todoList.filter(i => i !== item);
     }
 
     toggleItem(item) {
@@ -103,29 +100,29 @@ class ToDoApp {
 
         elements.cancelBtn.addEventListener('click', () => {
             this.removeItem(item);
-            this.updateList();
+            this.renderList();
         });
         elements.checkLabel.addEventListener('click', () => {
             this.toggleItem(item);
-            this.updateList();
+            this.renderList();
         });
     }
 
     showLeftItemsCount() {
-        const itemsCount = this.store.todoList.filter(i => !i.params.done).length;
+        const itemsCount = this.todoList.filter(i => !i.params.done).length;
         this.html.appWrapper.querySelector('#itemsCount').innerText = itemsCount === 1 ? '1 item left' : `${itemsCount} items left`;
     }
 
     toggleAllItems() {
-        let itemsCount = this.store.todoList.length;
+        let itemsCount = this.todoList.length;
         if (itemsCount) {
-            let notDoneItems = this.store.todoList.filter(item => !item.params.done);
+            let notDoneItems = this.todoList.filter(item => !item.params.done);
             if (notDoneItems.length && notDoneItems.length < itemsCount) {
                 notDoneItems.forEach(item => this.toggleItem(item));
             } else {
-                this.store.todoList.forEach(item => this.toggleItem(item));
+                this.todoList.forEach(item => this.toggleItem(item));
             }
-            this.updateList();
+            this.renderList();
         }
     }
 
@@ -136,19 +133,15 @@ class ToDoApp {
                 btn.classList.remove('active');
             }
         })
-        this.updateList();
-    }
-
-    updateList() {
-        this.store.activeList = this.filter === 'all' ? this.store.todoList : this.filter === 'active' ? this.store.todoList.filter(i => !i.params.done) : this.store.todoList.filter(i => i.params.done);
-        this.showLeftItemsCount();
         this.renderList();
     }
 
     renderList() {
-        const {html: {listWrapper}, store: {activeList}} = this;
-        listWrapper.innerHTML = "";
-        activeList.forEach(i => listWrapper.appendChild(i.elements.wrapper));
+        const {html, todoList, filter} = this;
+        html.listWrapper.innerHTML = "";
+        const activeList = filter === 'all' ? todoList : filter === 'active' ? todoList.filter(i => !i.params.done) : todoList.filter(i => i.params.done);
+        activeList.forEach(i => html.listWrapper.appendChild(i.elements.wrapper));
+        this.showLeftItemsCount();
     }
 
     start() {
