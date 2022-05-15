@@ -42,18 +42,33 @@ class ToDoApp {
             autocomplete: 'off',
             placeholder: 'What needs to be done?'
         });
+        const footerWrapper = createEl('div', {className: 'footer_cont', id: 'footer_cont'});
+        const footerCounter = createEl('span', {className: 'footer_count_cont', id: 'itemsCount'});
+        const filterBtnWrapper = createEl('div', {className: 'footer_btn_cont'});
+        const filterTypes = ['all', 'active', 'completed'];
+        filterTypes.forEach(type => {
+            const filterBtn = createEl('button', {className: type === this.filter ? 'active' : '', innerText: type});
+            filterBtn.dataset.type = type;
+            filterBtn.addEventListener('click', (e) => {
+                this.filterItems(e.target.dataset.type);
+                e.target.classList.add('active');
+            });
+            filterBtnWrapper.append(filterBtn);
+        });
 
         this.html.appWrapper = appWrapper;
         this.html.listWrapper = listWrapper;
+        this.html.filterBtnWrapper = filterBtnWrapper;
         this.html.checkAllBtn = checkAllBtn;
         this.html.input = input;
 
         inputWrapper.append(checkAllBtn, input);
-        appWrapper.append(inputWrapper, listWrapper);
+        footerWrapper.append(footerCounter, filterBtnWrapper);
+        appWrapper.append(inputWrapper, listWrapper, footerWrapper);
     }
 
     onInputEntered(title) {
-        if(title) {
+        if (title) {
             const newItem = this.createItem(title);
             this.addItemActions(newItem);
             this.addItem(newItem);
@@ -90,7 +105,15 @@ class ToDoApp {
             this.removeItem(item);
             this.updateList();
         });
-        elements.checkLabel.addEventListener('click', () => this.toggleItem(item));
+        elements.checkLabel.addEventListener('click', () => {
+            this.toggleItem(item);
+            this.updateList();
+        });
+    }
+
+    showLeftItemsCount() {
+        const itemsCount = this.store.todoList.filter(i => !i.params.done).length;
+        this.html.appWrapper.querySelector('#itemsCount').innerText = itemsCount === 1 ? '1 item left' : `${itemsCount} items left`;
     }
 
     toggleAllItems() {
@@ -102,11 +125,23 @@ class ToDoApp {
             } else {
                 this.store.todoList.forEach(item => this.toggleItem(item));
             }
+            this.updateList();
         }
+    }
+
+    filterItems(criteria) {
+        this.filter = criteria;
+        this.html.filterBtnWrapper.querySelectorAll('button').forEach(btn => {
+            if(btn.className.includes('active')) {
+                btn.classList.remove('active');
+            }
+        })
+        this.updateList();
     }
 
     updateList() {
         this.store.activeList = this.filter === 'all' ? this.store.todoList : this.filter === 'active' ? this.store.todoList.filter(i => !i.params.done) : this.store.todoList.filter(i => i.params.done);
+        this.showLeftItemsCount();
         this.renderList();
     }
 
@@ -143,17 +178,6 @@ class ToDoApp {
             }
         });
     };
-
-    createFooter() {
-        const footerContainer = createEl('div', {className: 'footer_cont', id: 'footer_cont'});
-        const footerCounter = createEl('span', {className: 'footer_count_cont', id: 'itemsCount'});
-        const footerBtnCont = createEl('div', {className: 'footer_btn_cont'});
-
-        footerContainer.appendChild(footerCounter);
-        footerContainer.appendChild(footerBtnCont);
-
-        return footerContainer;
-    }
 }
 
 class ToDoItem {
@@ -161,9 +185,11 @@ class ToDoItem {
         this.params = {id: guidGenerator(), value, done: false}
         this.init();
     }
+
     init() {
         this.createHTML();
     }
+
     createHTML() {
         const wrapper = createEl('div', {className: 'list_item'});
         const checkInput = createEl('input', {type: 'checkbox', id: guidGenerator()});
