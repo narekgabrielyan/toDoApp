@@ -5,26 +5,24 @@ class ToDoApp {
     constructor(containerElement) {
         this.containerElement = containerElement;
         this.html = {};
-        this.todoList = [];
+        this.todoList = getFromStorage('todoList') || [];
         this.filter = 'all';
-        this.init();
     }
 
     init() {
-        /**
-         * TODO: try to move
-         */
-        // window.addEventListener('load', () => this.renderList());
-
         this.createHTML();
+        this.addListeners();
+        this.updateList();
+    }
 
-        addBtnListener.call(this.html.input, 'Enter', (e) => {
-            this.onInputEntered(e.target.value);
-            e.target.value = '';
+    addListeners() {
+        this.html.input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.onInputEntered(e.target.value);
+                e.target.value = '';
+            }
         });
         this.html.checkAllBtn.addEventListener('click', () => this.toggleAllItems());
-
-        this.renderList();
     }
 
     createHTML() {
@@ -55,6 +53,7 @@ class ToDoApp {
 
         this.html.appWrapper = appWrapper;
         this.html.listWrapper = listWrapper;
+        this.html.footerWrapper = footerWrapper;
         this.html.filterBtnWrapper = filterBtnWrapper;
         this.html.checkAllBtn = checkAllBtn;
         this.html.input = input;
@@ -62,14 +61,15 @@ class ToDoApp {
         inputWrapper.append(checkAllBtn, input);
         footerWrapper.append(footerCounter, filterBtnWrapper);
         appWrapper.append(inputWrapper, listWrapper, footerWrapper);
+        this.containerElement.appendChild(this.html.appWrapper);
     }
 
     onInputEntered(title) {
-        if (title) {
+        if (isInputValid(title)) {
             const newItem = this.createItem(title);
             this.addItemActions(newItem);
             this.addItem(newItem);
-            this.renderList();
+            this.updateList();
         }
     }
 
@@ -95,22 +95,53 @@ class ToDoApp {
         }
     }
 
+    editItem(item) {
+        const input = createEl('input', {type: 'text', className: 'list_item_edit_input', value: item.params.value});
+        const inputListener = (e) => {
+            if (e.key === 'Enter') {
+                if (isInputValid(e.target.value)) {
+                    item.params.value = e.target.value;
+                    item.onEdit();
+                } else {
+                    this.removeItem(item);
+                }
+                input.remove();
+                this.updateList();
+            }
+        }
+        const mouseListener = (e) => {
+            if (!input.contains(e.target)) {
+                if (isInputValid(input.value)) {
+                    item.params.value = input.value;
+                    item.onEdit();
+                } else {
+                    this.removeItem(item);
+                }
+                input.remove();
+                window.removeEventListener('click', mouseListener);
+                this.updateList();
+            }
+        }
+
+        input.addEventListener('keypress', inputListener);
+        window.addEventListener('click', mouseListener);
+        item.elements.wrapper.appendChild(input);
+    }
+
     addItemActions(item) {
         const {elements} = item;
 
         elements.cancelBtn.addEventListener('click', () => {
             this.removeItem(item);
-            this.renderList();
+            this.updateList();
         });
         elements.checkLabel.addEventListener('click', () => {
             this.toggleItem(item);
-            this.renderList();
+            this.updateList();
         });
-    }
-
-    showLeftItemsCount() {
-        const itemsCount = this.todoList.filter(i => !i.params.done).length;
-        this.html.appWrapper.querySelector('#itemsCount').innerText = itemsCount === 1 ? '1 item left' : `${itemsCount} items left`;
+        elements.titleSpan.addEventListener('dblclick', () => {
+            this.editItem(item);
+        })
     }
 
     toggleAllItems() {
@@ -122,18 +153,34 @@ class ToDoApp {
             } else {
                 this.todoList.forEach(item => this.toggleItem(item));
             }
-            this.renderList();
+            this.updateList();
         }
     }
 
     filterItems(criteria) {
         this.filter = criteria;
         this.html.filterBtnWrapper.querySelectorAll('button').forEach(btn => {
-            if(btn.className.includes('active')) {
+            if (btn.className.includes('active')) {
                 btn.classList.remove('active');
             }
         })
-        this.renderList();
+        this.updateList();
+    }
+
+    updateLeftItemsCount() {
+        const itemsCount = this.todoList.filter(i => !i.params.done).length;
+        this.html.appWrapper.querySelector('#itemsCount').innerText = itemsCount === 1 ? '1 item left' : `${itemsCount} items left`;
+    }
+
+    renderFooter() {
+        if (this.todoList.length) {
+            this.updateLeftItemsCount();
+            if (this.html.footerWrapper.className.includes('hidden')) {
+                this.html.footerWrapper.classList.remove('hidden');
+            }
+        } else {
+            this.html.footerWrapper.classList.add('hidden');
+        }
     }
 
     renderList() {
@@ -141,11 +188,15 @@ class ToDoApp {
         html.listWrapper.innerHTML = "";
         const activeList = filter === 'all' ? todoList : filter === 'active' ? todoList.filter(i => !i.params.done) : todoList.filter(i => i.params.done);
         activeList.forEach(i => html.listWrapper.appendChild(i.elements.wrapper));
-        this.showLeftItemsCount();
+    }
+
+    updateList() {
+        this.renderFooter();
+        this.renderList();
     }
 
     start() {
-        this.containerElement.appendChild(this.html.appWrapper);
+        this.init();
     }
 
     destroy() {
@@ -155,21 +206,6 @@ class ToDoApp {
     edit(el) {
         const ToDoList = getParsedDataFromStorage('ToDoList');
         const title = el.innerText;
-        const input = createEl('input', {type: 'text', className: 'list_item_edit_input', value: title});
-        el.parentElement.appendChild(input);
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                el.innerText = e.target.value;
-                ToDoList.list = ToDoList.list.map(i => {
-                    if (i.id === el.parentElement.id) {
-                        i.title = el.innerText;
-                    }
-                    return i;
-                });
-                saveInLocalStorage('ToDoList', ToDoList);
-                e.target.remove();
-            }
-        });
     };
 }
 
@@ -193,5 +229,9 @@ class ToDoItem {
         this.elements = {wrapper, checkLabel, titleSpan, cancelBtn};
 
         wrapper.append(checkInput, checkLabel, titleSpan, cancelBtn);
+    }
+
+    onEdit() {
+        this.elements.titleSpan.innerText = this.params.value;
     }
 }

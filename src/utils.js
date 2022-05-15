@@ -6,11 +6,12 @@ function createEl(tagName, props = {}) {
     return el;
 }
 
-function getParsedDataFromStorage(key) {
+function getFromStorage(key) {
+    console.log(JSON.parse(localStorage.getItem(key)))
     return JSON.parse(localStorage.getItem(key));
 }
 
-function saveInLocalStorage(key, data) {
+function setInStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
@@ -23,6 +24,10 @@ function guidGenerator() {
         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
     };
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
+function isInputValid(str) {
+    return !!str.replace(/\s/g, '');
 }
 
 function addBtnListener(btn, fn) {
