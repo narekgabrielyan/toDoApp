@@ -1,0 +1,19 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "description": "Hello there! This is a \"to do\" application which can be used to create a simple ToDo list, written in pure js. Enjoy!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narekgabrielyan/TodoApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/narekgabrielyan/TodoApp/issues"
+  },
+  "homepage": "https://github.com/narekgabrielyan/TodoApp#readme"
+}
