@@ -3,7 +3,7 @@ class Store {
         const storage = window.localStorage;
 
         this.getListFromStorage = () => {
-            return JSON.parse(storage.getItem(name)) || '';
+            return JSON.parse(storage.getItem(name)) || [];
         }
 
         this.setListIntoStorage = (list) => {
