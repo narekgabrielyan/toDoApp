@@ -37,3 +37,7 @@ function addBtnListener(btn, fn) {
         }
     })
 }
+
+function qs(selector, scope) {
+    return (scope || document).querySelector(selector);
+}
