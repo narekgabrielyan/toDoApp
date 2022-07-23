@@ -1,16 +1,21 @@
 class Store {
-    constructor(name, callback) {
+    constructor(name) {
         const storage = window.localStorage;
 
-        this.getFromStorage = () => {
+        this.getListFromStorage = () => {
             return JSON.parse(storage.getItem(name)) || '';
         }
 
-        this.setIntoStorage = (data) => {
-            storage.setItem(name, JSON.stringify(data));
+        this.setListIntoStorage = (list) => {
+            storage.setItem(name, JSON.stringify(list));
         }
+    }
 
-        if (callback) {
+    addItem(item, callback) {
+        let todoList = this.getListFromStorage();
+        todoList.push(item);
+        this.setListIntoStorage(todoList);
+        if(callback) {
             callback();
         }
     }
