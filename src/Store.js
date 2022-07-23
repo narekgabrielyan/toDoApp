@@ -19,4 +19,17 @@ class Store {
             callback();
         }
     }
+
+    filter(query, callback) {
+        const itemList = this.getListFromStorage();
+
+        callback(itemList.filter(i => {
+            for(let k in query) {
+                if(query[k] !== i[k]) {
+                    return false;
+                }
+            }
+            return true;
+        }))
+    }
 }
