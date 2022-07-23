@@ -3,7 +3,7 @@ class Store {
         const storage = window.localStorage;
 
         this.getListFromStorage = () => {
-            return JSON.parse(storage.getItem(name)) || '';
+            return JSON.parse(storage.getItem(name)) || [];
         }
 
         this.setListIntoStorage = (list) => {
@@ -18,5 +18,18 @@ class Store {
         if(callback) {
             callback();
         }
+    }
+
+    filter(query, callback) {
+        const itemList = this.getListFromStorage();
+
+        callback(itemList.filter(i => {
+            for(let k in query) {
+                if(query[k] !== i[k]) {
+                    return false;
+                }
+            }
+            return true;
+        }))
     }
 }

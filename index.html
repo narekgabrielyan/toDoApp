@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!--    <script src="src/ToDoApp.js"></script>-->
+    <div id="root">
+        <header class="header">
+            <h1>todos</h1>
+            <input class="new-todo" placeholder="What needs to be done?" autofocus>
+        </header>
+        <section>
+            <ul class="list_cont flex flex-column"></ul>
+        </section>
+    </div>
     <script src="src/utils.js"></script>
-    <script src="src/ToDoApp.js"></script>
-    <script>
-        const toDoApp = new ToDoApp(document.body);
-        // toDoApp.start();
-        // toDoApp.destroy();
-    </script>
+    <script src="src/Template.js"></script>
+    <script src="src/Store.js"></script>
+    <script src="src/View.js"></script>
+    <script src="src/Controller.js"></script>
+    <script src="src/index.js"></script>
 </body>
 </html>

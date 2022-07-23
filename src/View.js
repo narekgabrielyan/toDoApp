@@ -1,16 +1,17 @@
 class View {
-    constructor(container) {
-        const appWrapper = createEl('div', {className: 'wrapper flex flex-column align-center', id: 'container'});
-        const newTodo = createEl('input', {id: 'newTodo', type: 'text'});
+    constructor(template) {
+        this.listWrapper = qs('.list_cont');
+        this.newTodo = qs('.new-todo');
 
-        this.containerEl = container;
-        this.appWrapper = appWrapper;
-        this.newTodo = newTodo;
+        this.template = template;
     }
 
     bindAddItem(callback) {
         this.newTodo.addEventListener('change', (e) => {
-            callback(e.target.value);
+            const title = e.target.value.trim();
+            if(title) {
+                callback(title);
+            }
         })
     }
 
@@ -18,13 +19,7 @@ class View {
         this.newTodo.value = '';
     }
 
-    setView(callback) {
-        const {containerEl, appWrapper, newTodo} = this;
-        appWrapper.appendChild(newTodo);
-        containerEl.appendChild(appWrapper);
-
-        if(callback) {
-            callback();
-        }
+    showItems(items) {
+        this.listWrapper.innerHTML = this.template.itemsList(items);
     }
 }
