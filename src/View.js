@@ -45,6 +45,6 @@ class View {
 
     updateFooterButtons(route) {
         qs('.filter-btn.filter-btn--active', this.main).classList.remove('filter-btn--active');
-        qs(`.filter-btn[href="#${route}"]`, this.main).classList.add('filter-btn--active');
+        qs(`.filter-btn[href="#/${route}"]`, this.main).classList.add('filter-btn--active');
     }
 }
