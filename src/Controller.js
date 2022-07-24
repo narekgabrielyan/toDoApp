@@ -18,7 +18,7 @@ class Controller {
         this.store.addItem({
             id: Date.now(),
             title: title,
-            completed: true
+            completed: false
         }, () => {
             this.view.clearNewTodo();
             this.filter(true);
