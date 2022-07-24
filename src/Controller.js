@@ -5,25 +5,32 @@ class Controller {
         this.store = store;
 
         view.bindAddItem(this.addItem.bind(this));
+        view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
     }
 
     addItem(title) {
         this.store.addItem({
             id: Date.now(),
             title: title,
-            completed: false
+            completed: true
         }, () => {
             this.view.clearNewTodo();
-            this.filter();
+            this.filter(true);
         });
     }
 
-    filter() {
-        this.store.filter(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+    filter(force) {
+        if(force) {
+            this.store.filter(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+        }
         this.store.count((total, active, completed) => {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
         })
+    }
+
+    clearCompletedItems() {
+        this.store.remove(QUERIES['completed'], () => this.filter(true));
     }
 }

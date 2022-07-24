@@ -17,6 +17,12 @@ class View {
         })
     }
 
+    bindClearCompletedItems(handler) {
+        this.clearCompleted.addEventListener('click', () => {
+            handler();
+        })
+    }
+
     clearNewTodo() {
         this.newTodo.value = '';
     }
