@@ -27,9 +27,9 @@ class Controller {
 
     filter(force) {
         if(force) {
-            this.store.filter(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+            this.store.filterItems(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
         }
-        this.store.count((total, active, completed) => {
+        this.store.countItems((total, active, completed) => {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
@@ -37,6 +37,6 @@ class Controller {
     }
 
     clearCompletedItems() {
-        this.store.remove(QUERIES['completed'], () => this.filter(true));
+        this.store.removeItem(QUERIES['completed'], () => this.filter(true));
     }
 }

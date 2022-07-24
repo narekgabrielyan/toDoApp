@@ -20,7 +20,7 @@ class Store {
         }
     }
 
-    filter(query, callback) {
+    filterItems(query, callback) {
         const itemList = this.getListFromStorage();
         const filteredItems = itemList.filter(i => {
             for(let k in query) {
@@ -34,8 +34,8 @@ class Store {
         callback(filteredItems);
     }
 
-    count(callback) {
-        this.filter(QUERIES[''], items => {
+    countItems(callback) {
+        this.filterItems(QUERIES[''], items => {
             const total = items.length;
 
             let i = total;
@@ -48,7 +48,7 @@ class Store {
         })
     }
 
-    remove(query, callback) {
+    removeItem(query, callback) {
         const todos = this.getListFromStorage().filter(i => {
             for(let k in query) {
                 if(query[k] !== i[k]) {
