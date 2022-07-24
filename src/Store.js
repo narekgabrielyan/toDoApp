@@ -22,14 +22,29 @@ class Store {
 
     filter(query, callback) {
         const itemList = this.getListFromStorage();
-
-        callback(itemList.filter(i => {
+        const filteredItems = itemList.filter(i => {
             for(let k in query) {
                 if(query[k] !== i[k]) {
                     return false;
                 }
             }
             return true;
-        }))
+        });
+
+        callback(filteredItems);
+    }
+
+    count(callback) {
+        this.filter(QUERIES[''], items => {
+            const total = items.length;
+
+            let i = total;
+            let completed = 0;
+
+            while(i--) {
+                completed += items[i].completed;
+            }
+            callback(total, total - completed, completed);
+        })
     }
 }
