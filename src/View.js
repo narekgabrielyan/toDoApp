@@ -3,6 +3,7 @@ class View {
         this.listWrapper = qs('.list_cont');
         this.newTodo = qs('.new-todo');
         this.main = qs('.main');
+        this.activeCount = qs('.footer_count_cont', this.main);
         this.template = template;
     }
 
@@ -25,5 +26,9 @@ class View {
 
     setMainVisibility(visible) {
         this.main.style.display = visible ? 'flex' : 'none';
+    }
+
+    setActiveItemsCount(activeItemsCount) {
+        this.activeCount.innerText = activeItemsCount === 1 ? '1 item left' : `${activeItemsCount} items left`;
     }
 }

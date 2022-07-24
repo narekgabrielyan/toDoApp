@@ -22,6 +22,7 @@ class Controller {
         this.store.filter(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
         this.store.count((total, active, completed) => {
             this.view.setMainVisibility(total);
+            this.view.setActiveItemsCount(active);
         })
     }
 }
