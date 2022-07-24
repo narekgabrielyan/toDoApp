@@ -18,11 +18,10 @@ class Controller {
         });
     }
 
-    getFilterQuery(criteria = this.activeRoute) {
-        return {'': {}, 'active': {completed: false}, 'completed': {completed: true}}[criteria];
-    }
-
     filter() {
-        this.store.filter(this.getFilterQuery(), this.view.showItems.bind(this.view));
+        this.store.filter(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+        this.store.count((total, active, completed) => {
+            this.view.setMainVisibility(total);
+        })
     }
 }
