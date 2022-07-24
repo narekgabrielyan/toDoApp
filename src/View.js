@@ -2,7 +2,7 @@ class View {
     constructor(template) {
         this.listWrapper = qs('.list_cont');
         this.newTodo = qs('.new-todo');
-
+        this.main = qs('.main');
         this.template = template;
     }
 
@@ -21,5 +21,9 @@ class View {
 
     showItems(items) {
         this.listWrapper.innerHTML = this.template.itemsList(items);
+    }
+
+    setMainVisibility(visible) {
+        this.main.style.display = visible ? 'flex' : 'none';
     }
 }
