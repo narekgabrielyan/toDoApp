@@ -8,6 +8,12 @@ class Controller {
         view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
     }
 
+    setView(href) {
+        const route = href.replace(/^#\//, '');
+        this.filter(true);
+        this.view.updateFooterButtons(route);
+    }
+
     addItem(title) {
         this.store.addItem({
             id: Date.now(),
