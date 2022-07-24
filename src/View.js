@@ -4,6 +4,7 @@ class View {
         this.newTodo = qs('.new-todo');
         this.main = qs('.main');
         this.activeCount = qs('.footer_count_cont', this.main);
+        this.clearCompleted = qs('.clear_completed-btn', this.main);
         this.template = template;
     }
 
@@ -25,10 +26,14 @@ class View {
     }
 
     setMainVisibility(visible) {
-        this.main.style.display = visible ? 'flex' : 'none';
+        this.main.style.display = !!visible ? 'flex' : 'none';
     }
 
     setActiveItemsCount(activeItemsCount) {
         this.activeCount.innerText = activeItemsCount === 1 ? '1 item left' : `${activeItemsCount} items left`;
+    }
+
+    setClearCompletedBtnVisibility(visible) {
+        this.clearCompleted.style.display = !!visible ? 'block' : 'none';
     }
 }

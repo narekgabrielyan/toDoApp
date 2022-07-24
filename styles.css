@@ -195,9 +195,8 @@ input {
     align-items: center;
     position: absolute;
     top: 4px;
-    right: 4px;
+    left: 4px;
     font-size: 12px;
-    padding-left: 20px;
 }
 
 .footer_btn_cont {
@@ -225,4 +224,22 @@ input {
 .footer_btn_cont button.active {
     color: #000;
     box-shadow: 0 0 3px 0 #38ad61;
+}
+
+.clear_completed-btn {
+    width: 80px;
+    border: none;
+    outline: none;
+    text-align: center;
+    position: absolute;
+    cursor: pointer;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    background-color: transparent;
+}
+
+.clear_completed-btn:hover {
+    text-decoration: underline;
 }

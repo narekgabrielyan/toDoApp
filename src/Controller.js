@@ -23,6 +23,7 @@ class Controller {
         this.store.count((total, active, completed) => {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
+            this.view.setClearCompletedBtnVisibility(completed);
         })
     }
 }
