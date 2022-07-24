@@ -20,16 +20,48 @@ class Store {
         }
     }
 
-    filter(query, callback) {
+    filterItems(query, callback) {
         const itemList = this.getListFromStorage();
-
-        callback(itemList.filter(i => {
+        const filteredItems = itemList.filter(i => {
             for(let k in query) {
                 if(query[k] !== i[k]) {
                     return false;
                 }
             }
             return true;
-        }))
+        });
+
+        callback(filteredItems);
+    }
+
+    countItems(callback) {
+        this.filterItems(QUERIES[''], items => {
+            const total = items.length;
+
+            let i = total;
+            let completed = 0;
+
+            while(i--) {
+                completed += items[i].completed;
+            }
+            callback(total, total - completed, completed);
+        })
+    }
+
+    removeItem(query, callback) {
+        const todos = this.getListFromStorage().filter(i => {
+            for(let k in query) {
+                if(query[k] !== i[k]) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        this.setListIntoStorage(todos);
+
+        if(callback) {
+            callback(todos);
+        }
     }
 }

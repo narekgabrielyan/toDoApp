@@ -5,6 +5,13 @@ class Controller {
         this.store = store;
 
         view.bindAddItem(this.addItem.bind(this));
+        view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
+    }
+
+    setView(href) {
+        const route = href.replace(/^#\//, '');
+        this.filter(true);
+        this.view.updateFooterButtons(route);
     }
 
     addItem(title) {
@@ -14,15 +21,22 @@ class Controller {
             completed: false
         }, () => {
             this.view.clearNewTodo();
-            this.filter();
+            this.filter(true);
         });
     }
 
-    getFilterQuery(criteria = this.activeRoute) {
-        return {'': {}, 'active': {completed: false}, 'completed': {completed: true}}[criteria];
+    filter(force) {
+        if(force) {
+            this.store.filterItems(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+        }
+        this.store.countItems((total, active, completed) => {
+            this.view.setMainVisibility(total);
+            this.view.setActiveItemsCount(active);
+            this.view.setClearCompletedBtnVisibility(completed);
+        })
     }
 
-    filter() {
-        this.store.filter(this.getFilterQuery(), this.view.showItems.bind(this.view));
+    clearCompletedItems() {
+        this.store.removeItem(QUERIES['completed'], () => this.filter(true));
     }
 }

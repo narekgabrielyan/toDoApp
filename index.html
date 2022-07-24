@@ -13,10 +13,20 @@
             <h1>todos</h1>
             <input class="new-todo" placeholder="What needs to be done?" autofocus>
         </header>
-        <section>
+        <section class="main flex flex-column">
             <ul class="list_cont flex flex-column"></ul>
+            <footer class="footer_cont">
+                <span class="footer_count_cont"></span>
+                <div class="footer_btn_cont">
+                    <a type="button" class="filter-btn filter-btn--active" href="#/">all</a>
+                    <a type="button" class="filter-btn" href="#/active">active</a>
+                    <a type="button" class="filter-btn" href="#/completed">completed</a>
+                </div>
+                <button class="clear_completed-btn">Clear completed</button>
+            </footer>
         </section>
     </div>
+    <script src="src/constants.js"></script>
     <script src="src/utils.js"></script>
     <script src="src/Template.js"></script>
     <script src="src/Store.js"></script>
