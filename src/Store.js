@@ -47,4 +47,21 @@ class Store {
             callback(total, total - completed, completed);
         })
     }
+
+    remove(query, callback) {
+        const todos = this.getListFromStorage().filter(i => {
+            for(let k in query) {
+                if(query[k] !== i[k]) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        this.setListIntoStorage(todos);
+
+        if(callback) {
+            callback(todos);
+        }
+    }
 }
