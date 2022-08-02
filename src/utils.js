@@ -7,7 +7,6 @@ function createEl(tagName, props = {}) {
 }
 
 function getFromStorage(key) {
-    console.log(JSON.parse(localStorage.getItem(key)))
     return JSON.parse(localStorage.getItem(key));
 }
 
@@ -19,25 +18,34 @@ function localStorageHasItem(key) {
     return localStorage.getItem(key) !== null;
 }
 
-function guidGenerator() {
-    const S4 = function() {
-        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-}
-
 function isInputValid(str) {
     return !!str.replace(/\s/g, '');
 }
 
-function addBtnListener(btn, fn) {
-    this.addEventListener('keypress', (e) => {
-        if(e.key === btn) {
-            fn(e);
-        }
-    })
-}
-
 function qs(selector, scope) {
     return (scope || document).querySelector(selector);
+}
+
+function qsAll(selector, scope) {
+    return (scope || document).querySelectorAll(selector);
+}
+
+function getTargetedItemId(target) {
+    return target.parentElement.id || target.parentElement.parentElement.id;
+}
+
+function delegateEvent(target, selector, type, handler, capture) {
+    const dispatchEvent = e => {
+        const targetElement = e.target;
+        const potentialElements = qsAll(selector, target);
+        let elementsCount = potentialElements.length;
+
+        while(elementsCount--) {
+            if(potentialElements[elementsCount] === targetElement) {
+                handler.call(targetElement, e);
+            }
+        }
+    }
+
+    target.addEventListener(type, dispatchEvent, capture);
 }
