@@ -20,6 +20,28 @@ class Store {
         }
     }
 
+
+    updateItem(updateItem, callback) {
+        const { id } = updateItem;
+        const todoItems = this.getListFromStorage();
+        let i = todoItems.length;
+
+        while(i--) {
+            if(todoItems[i].id === id) {
+                for(let k in updateItem) {
+                    todoItems[i][k] = updateItem[k]
+                }
+                break;
+            }
+        }
+
+        this.setListIntoStorage(todoItems);
+
+        if(callback) {
+            callback();
+        }
+    }
+
     filterItems(query, callback) {
         const itemList = this.getListFromStorage();
         const filteredItems = itemList.filter(i => {
@@ -48,20 +70,4 @@ class Store {
         })
     }
 
-    removeItem(query, callback) {
-        const todos = this.getListFromStorage().filter(i => {
-            for(let k in query) {
-                if(query[k] !== i[k]) {
-                    return true;
-                }
-            }
-            return false;
-        });
-
-        this.setListIntoStorage(todos);
-
-        if(callback) {
-            callback(todos);
-        }
-    }
 }

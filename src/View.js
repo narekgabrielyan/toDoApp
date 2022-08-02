@@ -17,6 +17,12 @@ class View {
         })
     }
 
+    bindToggleItem(callback) {
+        delegateEvent(this.main, '.toggle_item', 'click', ({target}) => {
+            callback(getTargetedItemId(target), target.checked);
+        });
+    }
+
     bindClearCompletedItems(handler) {
         this.clearCompleted.addEventListener('click', () => {
             handler();
@@ -46,5 +52,16 @@ class View {
     updateFooterButtons(route) {
         qs('.filter-btn.filter-btn--active', this.main).classList.remove('filter-btn--active');
         qs(`.filter-btn[href="#/${route}"]`, this.main).classList.add('filter-btn--active');
+    }
+
+    setItemCompleted(id, completed) {
+        const item = document.getElementById(id);
+        const itemCheckbox = document.getElementById(`toggle${id}`);
+        if(!item) {
+            return;
+        }
+
+        item.className = completed ? 'list_item list_item--done' : 'list_item';
+        itemCheckbox.checked = completed;
     }
 }
