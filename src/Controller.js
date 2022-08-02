@@ -53,6 +53,6 @@ class Controller {
     }
 
     clearCompletedItems() {
-        this.store.removeItem(QUERIES['completed'], () => this.filter(true));
+        this.store.removeItems(QUERIES['completed'], () => this.filter(true));
     }
 }
