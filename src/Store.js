@@ -42,6 +42,23 @@ class Store {
         }
     }
 
+    removeItems(query, callback) {
+        const todos = this.getListFromStorage().filter(i => {
+            for(let k in query) {
+                if(i[k] !== query[k]) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        this.setListIntoStorage(todos);
+
+        if(callback){
+            callback(todos);
+        }
+    }
+
     filterItems(query, callback) {
         const itemList = this.getListFromStorage();
         const filteredItems = itemList.filter(i => {
