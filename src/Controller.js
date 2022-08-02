@@ -5,6 +5,10 @@ class Controller {
         this.store = store;
 
         view.bindAddItem(this.addItem.bind(this));
+        view.bindToggleItem((id, completed) => {
+            this.toggleItem(id, completed);
+            this.filter();
+        })
         view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
     }
 
@@ -16,13 +20,17 @@ class Controller {
 
     addItem(title) {
         this.store.addItem({
-            id: Date.now(),
+            id: `${Date.now()}`,
             title: title,
             completed: false
         }, () => {
             this.view.clearNewTodo();
             this.filter(true);
         });
+    }
+
+    toggleItem(id, completed) {
+        this.store.updateItem({id, completed}, () => this.view.setItemCompleted(id, completed));
     }
 
     filter(force) {
@@ -33,7 +41,7 @@ class Controller {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
-        })
+        });
     }
 
     clearCompletedItems() {
