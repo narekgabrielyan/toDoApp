@@ -17,6 +17,12 @@ class View {
         })
     }
 
+    bindRemoveItem(callback) {
+        delegateEvent(this.main, '.list_item_cancel-btn', 'click', ({target}) => {
+            callback(getTargetedItemId(target));
+        });
+    }
+
     bindToggleItem(callback) {
         delegateEvent(this.main, '.toggle_item', 'click', ({target}) => {
             callback(getTargetedItemId(target), target.checked);
@@ -63,5 +69,15 @@ class View {
 
         item.className = completed ? 'list_item list_item--done' : 'list_item';
         itemCheckbox.checked = completed;
+    }
+
+    removeItem(id) {
+        const item = document.getElementById(id);
+
+        if(!item) {
+            return;
+        }
+
+        this.listWrapper.removeChild(item);
     }
 }

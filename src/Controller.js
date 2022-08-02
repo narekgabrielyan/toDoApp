@@ -33,6 +33,7 @@ class Controller {
     removeItem(id) {
         this.store.removeItems({id}, () => {
             this.filter();
+            this.view.removeItem(id);
         });
     }
 
