@@ -9,6 +9,7 @@ class Controller {
             this.toggleItem(id, completed);
             this.filter();
         })
+        view.bindRemoveItem(this.removeItem.bind(this));
         view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
     }
 
@@ -29,12 +30,18 @@ class Controller {
         });
     }
 
+    removeItem(id) {
+        this.store.removeItems({id}, () => {
+            this.filter();
+        });
+    }
+
     toggleItem(id, completed) {
         this.store.updateItem({id, completed}, () => this.view.setItemCompleted(id, completed));
     }
 
     filter(force) {
-        if(force) {
+        if (force) {
             this.store.filterItems(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
         }
         this.store.countItems((total, active, completed) => {
