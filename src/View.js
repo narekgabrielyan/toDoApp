@@ -1,6 +1,7 @@
 class View {
     constructor(template) {
         this.listWrapper = qs('.list_cont');
+        this.toggleAll = qs('.toggle_all');
         this.newTodo = qs('.new-todo');
         this.main = qs('.main');
         this.activeCount = qs('.footer_count_cont', this.main);
@@ -17,10 +18,23 @@ class View {
         })
     }
 
+    bindRemoveItem(callback) {
+        delegateEvent(this.main, '.list_item_cancel-btn', 'click', ({target}) => {
+            callback(getTargetedItemId(target));
+        });
+    }
+
     bindToggleItem(callback) {
         delegateEvent(this.main, '.toggle_item', 'click', ({target}) => {
             callback(getTargetedItemId(target), target.checked);
         });
+    }
+
+    bindToggleAll(callback) {
+        this.toggleAll.addEventListener('click', (e) => {
+            const isChecked = e.target.checked;
+            callback(isChecked);
+        })
     }
 
     bindClearCompletedItems(handler) {
@@ -49,6 +63,10 @@ class View {
         this.clearCompleted.style.display = !!visible ? 'block' : 'none';
     }
 
+    setToggleAllCheckedState(checked) {
+        this.toggleAll.checked = !!checked;
+    }
+
     updateFooterButtons(route) {
         qs('.filter-btn.filter-btn--active', this.main).classList.remove('filter-btn--active');
         qs(`.filter-btn[href="#/${route}"]`, this.main).classList.add('filter-btn--active');
@@ -63,5 +81,15 @@ class View {
 
         item.className = completed ? 'list_item list_item--done' : 'list_item';
         itemCheckbox.checked = completed;
+    }
+
+    removeItem(id) {
+        const item = document.getElementById(id);
+
+        if(!item) {
+            return;
+        }
+
+        this.listWrapper.removeChild(item);
     }
 }

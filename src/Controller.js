@@ -1,6 +1,7 @@
 class Controller {
     constructor(view, store) {
         this.activeRoute = '';
+        this.lastActiveRoute = null;
         this.view = view;
         this.store = store;
 
@@ -9,12 +10,15 @@ class Controller {
             this.toggleItem(id, completed);
             this.filter();
         })
-        view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
+        view.bindRemoveItem(this.removeItem.bind(this));
+        view.bindClearCompletedItems(this.clearCompletedItems.bind(this));
+        view.bindToggleAll(this.toggleAll.bind(this));
     }
 
     setView(href) {
         const route = href.replace(/^#\//, '');
-        this.filter(true);
+        this.activeRoute = route;
+        this.filter();
         this.view.updateFooterButtons(route);
     }
 
@@ -29,22 +33,44 @@ class Controller {
         });
     }
 
+    removeItem(id) {
+        this.store.removeItems({id}, () => {
+            this.filter();
+            this.view.removeItem(id);
+        });
+    }
+
     toggleItem(id, completed) {
         this.store.updateItem({id, completed}, () => this.view.setItemCompleted(id, completed));
     }
 
+    toggleAll(checked) {
+        this.store.filterItems({completed: !checked}, items => {
+            items.forEach(item => {
+                this.toggleItem(item.id, checked);
+            })
+        })
+
+        this.filter();
+    }
+
     filter(force) {
-        if(force) {
-            this.store.filterItems(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+        const route = this.activeRoute;
+
+        if (force || this.lastActiveRoute !== '' || this.lastActiveRoute !== route) {
+            this.store.filterItems(QUERIES[route], this.view.showItems.bind(this.view));
         }
         this.store.countItems((total, active, completed) => {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
+            this.view.setToggleAllCheckedState(completed === total);
         });
+
+        this.lastActiveRoute = route;
     }
 
     clearCompletedItems() {
-        this.store.removeItem(QUERIES['completed'], () => this.filter(true));
+        this.store.removeItems(QUERIES['completed'], () => this.filter(true));
     }
 }

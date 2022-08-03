@@ -6,3 +6,4 @@ const newController = new Controller(newView, newStore);
 
 const setView = () => newController.setView(document.location.hash);
 window.addEventListener('load', setView);
+window.addEventListener('hashchange', setView);
