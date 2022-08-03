@@ -7,6 +7,10 @@ class View {
         this.activeCount = qs('.footer_count_cont', this.main);
         this.clearCompleted = qs('.clear_completed-btn', this.main);
         this.template = template;
+
+        delegateEvent(this.main, '.list_item_title', 'dblclick', ({target}) => {
+            this.setEditItem(target);
+        })
     }
 
     bindAddItem(callback) {
@@ -65,6 +69,15 @@ class View {
 
     setToggleAllCheckedState(checked) {
         this.toggleAll.checked = !!checked;
+    }
+
+    setEditItem(target) {
+        const targetParent = target.parentElement;
+        const editInput = createEl('input', {className: 'input_edit', value: target.innerText});
+
+        targetParent.appendChild(editInput);
+
+        editInput.focus();
     }
 
     updateFooterButtons(route) {
