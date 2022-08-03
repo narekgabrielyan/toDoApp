@@ -1,5 +1,5 @@
 const QUERIES = {
     '': {},
-    'active': {completed: false},
-    'completed': {completed: true}
+    active: {completed: false},
+    completed: {completed: true}
 }

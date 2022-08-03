@@ -61,16 +61,16 @@ class Controller {
             this.store.filterItems(QUERIES[route], this.view.showItems.bind(this.view));
         }
         this.store.countItems((total, active, completed) => {
-            this.view.setMainVisibility(total);
-            this.view.setActiveItemsCount(active);
-            this.view.setClearCompletedBtnVisibility(completed);
             this.view.setToggleAllCheckedState(completed === total);
+            this.view.setActiveItemsCount(active);
+            this.view.setMainVisibility(total);
+            this.view.setClearCompletedBtnVisibility(completed);
         });
 
         this.lastActiveRoute = route;
     }
 
     clearCompletedItems() {
-        this.store.removeItems(QUERIES['completed'], () => this.filter(true));
+        this.store.removeItems(QUERIES.completed, () => this.filter(true));
     }
 }
