@@ -1,6 +1,7 @@
 class View {
     constructor(template) {
         this.listWrapper = qs('.list_cont');
+        this.toggleAll = qs('.toggle_all');
         this.newTodo = qs('.new-todo');
         this.main = qs('.main');
         this.activeCount = qs('.footer_count_cont', this.main);
@@ -53,6 +54,10 @@ class View {
 
     setClearCompletedBtnVisibility(visible) {
         this.clearCompleted.style.display = !!visible ? 'block' : 'none';
+    }
+
+    setToggleAllCheckedState(checked) {
+        this.toggleAll.checked = !!checked;
     }
 
     updateFooterButtons(route) {

@@ -11,7 +11,13 @@
     <div id="root">
         <header class="header">
             <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>
+            <div class="input_cont">
+                <div class="toggle_all_cont">
+                    <input type="checkbox" class="toggle_all" id="toggle_all">
+                    <label for="toggle_all" class="toggle_all_lbl lv_icon--arrow"></label>
+                </div>
+                <input class="new-todo" placeholder="What needs to be done?" autofocus>
+            </div>
         </header>
         <section class="main flex flex-column">
             <ul class="list_cont flex flex-column"></ul>

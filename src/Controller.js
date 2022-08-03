@@ -53,6 +53,7 @@ class Controller {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
+            this.view.setToggleAllCheckedState(completed === total);
         });
 
         this.lastActiveRoute = route;
