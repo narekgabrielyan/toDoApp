@@ -11,7 +11,8 @@ class Controller {
             this.filter();
         })
         view.bindRemoveItem(this.removeItem.bind(this));
-        view.bindClearCompletedItems(this.clearCompletedItems.bind(this))
+        view.bindClearCompletedItems(this.clearCompletedItems.bind(this));
+        view.bindToggleAll(this.toggleAll.bind(this));
     }
 
     setView(href) {
@@ -41,6 +42,16 @@ class Controller {
 
     toggleItem(id, completed) {
         this.store.updateItem({id, completed}, () => this.view.setItemCompleted(id, completed));
+    }
+
+    toggleAll(checked) {
+        this.store.filterItems({completed: !checked}, items => {
+            items.forEach(item => {
+                this.toggleItem(item.id, checked);
+            })
+        })
+
+        this.filter();
     }
 
     filter(force) {

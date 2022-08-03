@@ -30,6 +30,13 @@ class View {
         });
     }
 
+    bindToggleAll(callback) {
+        this.toggleAll.addEventListener('click', (e) => {
+            const isChecked = e.target.checked;
+            callback(isChecked);
+        })
+    }
+
     bindClearCompletedItems(handler) {
         this.clearCompleted.addEventListener('click', () => {
             handler();
