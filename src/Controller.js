@@ -1,6 +1,7 @@
 class Controller {
     constructor(view, store) {
         this.activeRoute = '';
+        this.lastActiveRoute = null;
         this.view = view;
         this.store = store;
 
@@ -15,7 +16,8 @@ class Controller {
 
     setView(href) {
         const route = href.replace(/^#\//, '');
-        this.filter(true);
+        this.activeRoute = route;
+        this.filter();
         this.view.updateFooterButtons(route);
     }
 
@@ -42,14 +44,18 @@ class Controller {
     }
 
     filter(force) {
-        if (force) {
-            this.store.filterItems(QUERIES[this.activeRoute], this.view.showItems.bind(this.view));
+        const route = this.activeRoute;
+
+        if (force || this.lastActiveRoute !== '' || this.lastActiveRoute !== route) {
+            this.store.filterItems(QUERIES[route], this.view.showItems.bind(this.view));
         }
         this.store.countItems((total, active, completed) => {
             this.view.setMainVisibility(total);
             this.view.setActiveItemsCount(active);
             this.view.setClearCompletedBtnVisibility(completed);
         });
+
+        this.lastActiveRoute = route;
     }
 
     clearCompletedItems() {
