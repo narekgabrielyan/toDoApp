@@ -14,6 +14,7 @@ class Controller {
         view.bindClearCompletedItems(this.clearCompletedItems.bind(this));
         view.bindToggleAll(this.toggleAll.bind(this));
         view.bindEditItemCancel(this.editItemCancel.bind(this));
+        view.bindEditItemSave(this.editItemSave.bind(this));
     }
 
     setView(href) {
@@ -60,6 +61,16 @@ class Controller {
             const title = items[0].title;
             this.view.editItemDone(id, title);
         })
+    }
+
+    editItemSave(id, title) {
+        if(title.length) {
+            this.store.updateItem({id, title}, () => {
+                this.view.editItemDone(id, title);
+            })
+        } else {
+            this.removeItem(id);
+        }
     }
 
     filter(force) {

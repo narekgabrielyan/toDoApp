@@ -58,6 +58,20 @@ class View {
         });
     }
 
+    bindEditItemSave(handler) {
+        delegateEvent(this.main, '.input_edit', 'blur', ({target}) => {
+            if(!target.dataset.iscanceled) {
+                handler(getTargetedItemId(target), target.value.trim());
+            }
+        }, true);
+
+        delegateEvent(this.main, '.input_edit', 'keypress', ({target, keyCode}) => {
+            if(keyCode === KEYCODES.ENTER_KEY) {
+                target.blur();
+            }
+        }, true)
+    }
+
     clearNewTodo() {
         this.newTodo.value = '';
     }
