@@ -5,5 +5,6 @@ const QUERIES = {
 }
 
 const KEYCODES = {
-    ESCAPE_KEY: 27
+    ESCAPE_KEY: 27,
+    ENTER_KEY: 13
 }
