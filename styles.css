@@ -290,3 +290,13 @@ body {
 .toggle_all:checked + .toggle_all_lbl {
     opacity: 1;
 }
+
+.input_edit {
+    width: calc(100% - 36px);
+    height: 100%;
+    padding: 0 16px;
+    position: absolute;
+    top: 0;
+    left: 36px;
+    font-size: 20px;
+}

@@ -13,6 +13,8 @@ class Controller {
         view.bindRemoveItem(this.removeItem.bind(this));
         view.bindClearCompletedItems(this.clearCompletedItems.bind(this));
         view.bindToggleAll(this.toggleAll.bind(this));
+        view.bindEditItemCancel(this.editItemCancel.bind(this));
+        view.bindEditItemSave(this.editItemSave.bind(this));
     }
 
     setView(href) {
@@ -54,6 +56,23 @@ class Controller {
         this.filter();
     }
 
+    editItemCancel(id) {
+        this.store.filterItems({id}, (items) => {
+            const title = items[0].title;
+            this.view.editItemDone(id, title);
+        })
+    }
+
+    editItemSave(id, title) {
+        if(title.length) {
+            this.store.updateItem({id, title}, () => {
+                this.view.editItemDone(id, title);
+            })
+        } else {
+            this.removeItem(id);
+        }
+    }
+
     filter(force) {
         const route = this.activeRoute;
 
@@ -61,16 +80,16 @@ class Controller {
             this.store.filterItems(QUERIES[route], this.view.showItems.bind(this.view));
         }
         this.store.countItems((total, active, completed) => {
-            this.view.setMainVisibility(total);
-            this.view.setActiveItemsCount(active);
-            this.view.setClearCompletedBtnVisibility(completed);
             this.view.setToggleAllCheckedState(completed === total);
+            this.view.setActiveItemsCount(active);
+            this.view.setMainVisibility(total);
+            this.view.setClearCompletedBtnVisibility(completed);
         });
 
         this.lastActiveRoute = route;
     }
 
     clearCompletedItems() {
-        this.store.removeItems(QUERIES['completed'], () => this.filter(true));
+        this.store.removeItems(QUERIES.completed, () => this.filter(true));
     }
 }

@@ -7,6 +7,10 @@ class View {
         this.activeCount = qs('.footer_count_cont', this.main);
         this.clearCompleted = qs('.clear_completed-btn', this.main);
         this.template = template;
+
+        delegateEvent(this.main, '.list_item_title', 'dblclick', ({target}) => {
+            this.setEditItem(target);
+        })
     }
 
     bindAddItem(callback) {
@@ -43,6 +47,31 @@ class View {
         })
     }
 
+    bindEditItemCancel(handler) {
+        delegateEvent(this.main, '.input_edit', 'keyup', ({target, keyCode}) => {
+            if(keyCode === KEYCODES.ESCAPE_KEY) {
+                target.dataset.iscanceled = true;
+                target.blur();
+
+                handler(getTargetedItemId(target));
+            }
+        });
+    }
+
+    bindEditItemSave(handler) {
+        delegateEvent(this.main, '.input_edit', 'blur', ({target}) => {
+            if(!target.dataset.iscanceled) {
+                handler(getTargetedItemId(target), target.value.trim());
+            }
+        }, true);
+
+        delegateEvent(this.main, '.input_edit', 'keypress', ({target, keyCode}) => {
+            if(keyCode === KEYCODES.ENTER_KEY) {
+                target.blur();
+            }
+        }, true)
+    }
+
     clearNewTodo() {
         this.newTodo.value = '';
     }
@@ -65,6 +94,28 @@ class View {
 
     setToggleAllCheckedState(checked) {
         this.toggleAll.checked = !!checked;
+    }
+
+    setEditItem(target) {
+        const targetParent = target.parentElement;
+        const listItem = targetParent.parentElement;
+        const editInput = createEl('input', {className: 'input_edit', value: target.innerText});
+
+        listItem.classList.add('list_item-editing');
+
+        targetParent.appendChild(editInput);
+        editInput.focus();
+    }
+
+    editItemDone(id, title) {
+        const listItem = document.getElementById(id);
+        const itemContent = qs('.list_item_content', listItem);
+        const editInput = qs('.input_edit', itemContent);
+        const itemTitle = qs('.list_item_title', itemContent);
+
+        listItem.classList.remove('.list_item-editing');
+        itemTitle.innerText = title;
+        itemContent.removeChild(editInput);
     }
 
     updateFooterButtons(route) {
