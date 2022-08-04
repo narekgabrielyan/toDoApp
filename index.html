@@ -11,22 +11,22 @@
     <div id="root">
         <header class="header">
             <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>
+            <input class="input-new_item" placeholder="What needs to be done?" autofocus>
         </header>
         <section class="main flex flex-column">
-            <div class="toggle_all_cont">
-                <input type="checkbox" class="toggle_all" id="toggle_all">
-                <label for="toggle_all" class="toggle_all_lbl lv_icon--arrow"></label>
+            <div class="toggle_all_wrapper">
+                <input type="checkbox" class="input-toggle_all" id="input-toggle_all">
+                <label for="input-toggle_all" class="label-toggle_all icon-arrow"></label>
             </div>
-            <ul class="list_cont flex flex-column"></ul>
-            <footer class="footer_cont">
-                <span class="footer_count_cont"></span>
-                <div class="footer_btn_cont">
-                    <a type="button" class="filter-btn filter-btn--active" href="#/">all</a>
-                    <a type="button" class="filter-btn" href="#/active">active</a>
-                    <a type="button" class="filter-btn" href="#/completed">completed</a>
+            <ul class="items_list_wrapper flex flex-column"></ul>
+            <footer class="footer_wrapper">
+                <span class="items_count_wrapper"></span>
+                <div class="footer_btn_wrapper">
+                    <a type="button" class="btn-filter btn-filter-active" href="#/">all</a>
+                    <a type="button" class="btn-filter" href="#/active">active</a>
+                    <a type="button" class="btn-filter" href="#/completed">completed</a>
                 </div>
-                <button class="clear_completed-btn">Clear completed</button>
+                <button class="btn-clear_completed">Clear completed</button>
             </footer>
         </section>
     </div>
