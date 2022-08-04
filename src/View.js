@@ -47,6 +47,17 @@ class View {
         })
     }
 
+    bindEditItemCancel(handler) {
+        delegateEvent(this.main, '.input_edit', 'keyup', ({target, keyCode}) => {
+            if(keyCode === KEYCODES.ESCAPE_KEY) {
+                target.dataset.iscanceled = true;
+                target.blur();
+
+                handler(getTargetedItemId(target));
+            }
+        });
+    }
+
     clearNewTodo() {
         this.newTodo.value = '';
     }
@@ -73,11 +84,24 @@ class View {
 
     setEditItem(target) {
         const targetParent = target.parentElement;
+        const listItem = targetParent.parentElement;
         const editInput = createEl('input', {className: 'input_edit', value: target.innerText});
 
-        targetParent.appendChild(editInput);
+        listItem.classList.add('list_item-editing');
 
+        targetParent.appendChild(editInput);
         editInput.focus();
+    }
+
+    editItemDone(id, title) {
+        const listItem = document.getElementById(id);
+        const itemContent = qs('.list_item_content', listItem);
+        const editInput = qs('.input_edit', itemContent);
+        const itemTitle = qs('.list_item_title', itemContent);
+
+        listItem.classList.remove('.list_item-editing');
+        itemTitle.innerText = title;
+        itemContent.removeChild(editInput);
     }
 
     updateFooterButtons(route) {
