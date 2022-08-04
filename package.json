@@ -2,7 +2,7 @@
   "name": "todo_app",
   "version": "1.0.0",
   "description": "Hello there! This is a \"to do\" application which can be used to create a simple ToDo list, written in pure js. Enjoy!",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/narekgabrielyan/TodoApp/issues"
   },
-  "homepage": "https://github.com/narekgabrielyan/TodoApp#readme"
+  "homepage": "https://github.com/narekgabrielyan/TodoApp#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
 }
