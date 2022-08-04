@@ -134,7 +134,7 @@ body {
     text-decoration: line-through;
 }
 
-.list_item.list_item--done .lv_icon--unchecked:before {
+.list_item.list_item--done .icon-unchecked:before {
     content: "\e909";
 }
 

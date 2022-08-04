@@ -10,7 +10,7 @@
   font-display: block;
 }
 
-[class^="lv_icon--"], [class*=" lv_icon--"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'iconFont' !important;
   speak: never;
@@ -26,15 +26,15 @@
 
 }
 
-.lv_icon--cancel:before {
+.icon-cancel:before {
   content: "\e918";
 }
-.lv_icon--checked:before {
+.icon-checked:before {
   content: "\e909";
 }
-.lv_icon--unchecked:before {
+.icon-unchecked:before {
   content: "\e90a";
 }
-.lv_icon--arrow:before {
+.icon-arrow:before {
   content: "\e908";
 }
