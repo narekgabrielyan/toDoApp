@@ -3,3 +3,4 @@
 .vs
 .vs_code
 node_modules
+dist/main.js
