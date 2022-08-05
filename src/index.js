@@ -1,9 +1,15 @@
-const containerEl = document.getElementById('testId');
-const newTemplate = new Template();
-const newView = new View(newTemplate);
-const newStore = new Store('todoList');
-const newController = new Controller(newView, newStore);
+import Store from './Store';
+import Template from './Template';
+import View from './View';
+import Controller from './Controller';
+import css from '../styles.css';
 
-const setView = () => newController.setView(document.location.hash);
+const store = new Store('todoList');
+const template = new Template();
+const view = new View(template);
+const controller = new Controller(view, store);
+
+const setView = () => controller.setView(document.location.hash);
+
 window.addEventListener('load', setView);
 window.addEventListener('hashchange', setView);

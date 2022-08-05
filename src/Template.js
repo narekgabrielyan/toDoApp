@@ -1,4 +1,4 @@
-class Template {
+export default class Template {
     itemsList(items) {
         return items.reduce((a, i) => {
             return a + `

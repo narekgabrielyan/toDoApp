@@ -1,4 +1,6 @@
-class Controller {
+import {QUERIES} from "./constants";
+
+export default class Controller {
     constructor(view, store) {
         this.activeRoute = '';
         this.lastActiveRoute = null;
