@@ -1,4 +1,7 @@
-class View {
+import {qs, delegateEvent, getTargetedItemId, createEl} from "./utils";
+import {KEYCODES} from "./constants";
+
+export default class View {
     constructor(template) {
         this.listWrapper = qs('.items_list_wrapper');
         this.toggleAll = qs('.input-toggle_all');

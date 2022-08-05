@@ -1,4 +1,6 @@
-class Store {
+import {QUERIES} from "./constants";
+
+export default class Store {
     constructor(name) {
         const storage = window.localStorage;
 
