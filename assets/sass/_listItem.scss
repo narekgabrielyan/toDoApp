@@ -2,8 +2,12 @@
   width: 100%;
   font-size: 20px;
   position: relative;
+  border-radius: 12px;
+  color: #fff;
+  background-color: #35333D;
 
   &:not(:last-child) {
+    margin-bottom: 12px;
     border-bottom: 1px solid rgba(60, 60, 60, 0.1);
   }
 
@@ -20,7 +24,7 @@
     display: flex;
     align-items: center;
     height: 50px;
-    padding: 16px;
+    padding: 16px 8px 16px 16px;
   }
 
   .input-edit_list_item {
@@ -41,14 +45,14 @@
   }
 
   .checkbox-toggle_item {
-    color: #333;
+    color: #fff;
   }
 
   input:checked + .checkbox-toggle_item {
     color: var(--green);
   }
 
-  span {
+  .list_item_title {
     padding: 0 16px;
     flex-grow: 1;
     min-width: 0;
@@ -59,21 +63,25 @@
   }
 
   .btn-list_item_cancel {
+    width: 34px;
+    height: 34px;
     border: 0;
     outline: 0;
     opacity: 0;
+    border-radius: 6px;
     cursor: pointer;
     padding: 4px;
-    font-size: 18px;
-    background-color: transparent;
-    transition-property: opacity, color;
+    font-size: 22px;
+    transition-property: opacity, color, box-shadow;
     transition-duration: 180ms;
     transition-delay: 12ms;
     transition-timing-function: ease-in-out;
-    color: rgb(200, 0, 0);
+    color: #fff;
+    background-color: #64666F;
 
     &:hover {
       opacity: 1;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     }
   }
 }

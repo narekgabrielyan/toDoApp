@@ -7,7 +7,7 @@ export default class Template {
                         <input type="checkbox" class="toggle_item" id="toggle${i.id}" ${i.completed ? 'checked' : ''}>
                         <label for="toggle${i.id}" class="checkbox-toggle_item icon-unchecked"></label>
                         <span class="list_item_title">${i.title}</span>
-                        <button class="btn-list_item_cancel icon-cancel"></button>
+                        <button class="btn-list_item_cancel icon-remove flex align-center justify-center"></button>
                     </div>
                 </li>
         `}, '');
