@@ -14,3 +14,13 @@
     opacity: 0;
   }
 }
+
+@keyframes editInput {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: calc(100% - 144px);
+  }
+}

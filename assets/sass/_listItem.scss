@@ -21,27 +21,31 @@
   }
 
   .list_item_content {
-    display: flex;
-    align-items: center;
     height: 50px;
     padding: 16px 8px 16px 16px;
   }
 
   .input-edit_list_item {
-    width: calc(100% - 36px);
-    height: 100%;
-    padding: 0 16px;
-    position: absolute;
-    top: 0;
-    left: 36px;
+    width: 0;
+    height: 30px;
+    padding: 0 16px 0 8px;
     font-size: 20px;
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    outline: 0;
+    color: #fff;
+    background-color: #35333D;
+    border-bottom: 1px solid #F3F699;
+    animation: editInput 280ms ease-out forwards;
   }
 
   .toggle_item {
     transform: scale(1.5);
     opacity: 0;
     position: absolute;
-    cursor: pointer;
   }
 
   .checkbox-toggle_item {
@@ -52,7 +56,6 @@
     border-radius: 50%;
     color: #fff;
     border: 2px solid #fff;
-    cursor: pointer;
     &:before {
       content: "";
       position: absolute;
@@ -95,7 +98,6 @@
     outline: 0;
     opacity: 0;
     border-radius: 6px;
-    cursor: pointer;
     padding: 4px;
     font-size: 22px;
     color: #fff;
