@@ -1,0 +1,16 @@
+@keyframes itemDone {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  75% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

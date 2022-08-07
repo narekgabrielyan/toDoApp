@@ -26,7 +26,7 @@ export default class View {
     }
 
     bindRemoveItem(callback) {
-        delegateEvent(this.main, '.btn-list_item_cancel', 'click', ({target}) => {
+        delegateEvent(this.main, '.btn-list_item-cancel', 'click', ({target}) => {
             callback(getTargetedItemId(target));
         });
     }
@@ -118,6 +118,7 @@ export default class View {
 
         listItem.classList.remove('.list_item-editing');
         itemTitle.innerText = title;
+        itemTitle.title = title;
         itemContent.removeChild(editInput);
     }
 

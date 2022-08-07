@@ -7,17 +7,17 @@
 </head>
 <body>
 <!--    <script src="src/ToDoApp.js"></script>-->
-    <div id="root">
+    <div id="root" class="app_wrapper">
         <header class="header">
-            <h1>todos</h1>
+            <h1>Task description</h1>
             <input class="input-new_item" placeholder="What needs to be done?" autofocus>
         </header>
         <section class="main flex flex-column">
             <div class="toggle_all_wrapper">
                 <input type="checkbox" class="input-toggle_all" id="input-toggle_all">
-                <label for="input-toggle_all" class="label-toggle_all icon-arrow"></label>
+                <label for="input-toggle_all" class="label-toggle_all icon-arrow-down" title="Toggle all"></label>
             </div>
-            <ul class="items_list_wrapper flex flex-column"></ul>
+            <ul class="items_list_wrapper flex flex-column empty"></ul>
             <footer class="footer_wrapper">
                 <span class="items_count_wrapper"></span>
                 <div class="footer_btn_wrapper">

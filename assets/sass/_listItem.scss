@@ -45,26 +45,52 @@
   }
 
   .checkbox-toggle_item {
+    flex-shrink: 0;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: inherit;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: itemDone;
+      animation-duration: 2s;
+      animation-timing-function: ease-out;
+      animation-delay: -200ms;
+    }
   }
 
   input:checked + .checkbox-toggle_item {
-    color: var(--green);
+    border: none;
+    background-color: var(--green);
   }
 
   .list_item_title {
     padding: 0 16px;
-    flex-grow: 1;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
     min-width: 0;
   }
 
-  &:hover .btn-list_item_cancel {
+  &:hover .btn-list_item-cancel {
     opacity: 0.3;
   }
 
-  .btn-list_item_cancel {
+  .btn-list_item-cancel {
     width: 34px;
     height: 34px;
+    flex-shrink: 0;
     border: 0;
     outline: 0;
     opacity: 0;
@@ -72,12 +98,12 @@
     cursor: pointer;
     padding: 4px;
     font-size: 22px;
+    color: #fff;
+    background-color: #64666F;
     transition-property: opacity, color, box-shadow;
     transition-duration: 180ms;
     transition-delay: 12ms;
     transition-timing-function: ease-in-out;
-    color: #fff;
-    background-color: #64666F;
 
     &:hover {
       opacity: 1;
