@@ -28,13 +28,20 @@
   }
 
   .input-edit_list_item {
-    width: calc(100% - 36px);
-    height: 100%;
-    padding: 0 16px;
-    position: absolute;
-    top: 0;
-    left: 36px;
+    width: 0;
+    height: 30px;
+    padding: 0 16px 0 8px;
     font-size: 20px;
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    outline: 0;
+    color: #fff;
+    background-color: #35333D;
+    border-bottom: 1px solid #F3F699;
+    animation: editInput 180ms ease-out forwards;
   }
 
   .toggle_item {
