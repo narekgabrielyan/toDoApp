@@ -5,14 +5,9 @@
   outline: 0;
   border-radius: 16px;
   margin-top: 12px;
-  display: flex;
   position: relative;
-  align-items: center;
-  justify-content: center;
 
   .items_count_wrapper {
-    display: flex;
-    align-items: center;
     position: absolute;
     top: -2px;
     left: 4px;
@@ -20,7 +15,6 @@
   }
 
   .footer_btn_wrapper {
-    display: flex;
     height: 36px;
     overflow: hidden;
     border-radius: 18px;
