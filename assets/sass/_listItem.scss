@@ -1,0 +1,113 @@
+.list_item {
+  width: 100%;
+  font-size: 20px;
+  position: relative;
+  border-radius: 12px;
+  color: #fff;
+  background-color: #35333D;
+
+  &:not(:last-child) {
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(60, 60, 60, 0.1);
+  }
+
+  &-done {
+    span {
+      text-decoration: line-through;
+    }
+    .icon-unchecked:before {
+      content: "\e909";
+    }
+  }
+
+  .list_item_content {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 16px 8px 16px 16px;
+  }
+
+  .input-edit_list_item {
+    width: calc(100% - 36px);
+    height: 100%;
+    padding: 0 16px;
+    position: absolute;
+    top: 0;
+    left: 36px;
+    font-size: 20px;
+  }
+
+  .toggle_item {
+    transform: scale(1.5);
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .checkbox-toggle_item {
+    flex-shrink: 0;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: inherit;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: itemDone;
+      animation-duration: 2s;
+      animation-timing-function: ease-out;
+      animation-delay: -200ms;
+    }
+  }
+
+  input:checked + .checkbox-toggle_item {
+    border: none;
+    background-color: var(--green);
+  }
+
+  .list_item_title {
+    padding: 0 16px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  &:hover .btn-list_item-cancel {
+    opacity: 0.3;
+  }
+
+  .btn-list_item-cancel {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 0;
+    outline: 0;
+    opacity: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #64666F;
+    transition-property: opacity, color, box-shadow;
+    transition-duration: 180ms;
+    transition-delay: 12ms;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      opacity: 1;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

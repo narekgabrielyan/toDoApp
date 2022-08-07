@@ -26,7 +26,7 @@ export default class View {
     }
 
     bindRemoveItem(callback) {
-        delegateEvent(this.main, '.btn-list_item_cancel', 'click', ({target}) => {
+        delegateEvent(this.main, '.btn-list_item-cancel', 'click', ({target}) => {
             callback(getTargetedItemId(target));
         });
     }
@@ -51,7 +51,7 @@ export default class View {
     }
 
     bindEditItemCancel(handler) {
-        delegateEvent(this.main, '.input_edit', 'keyup', ({target, keyCode}) => {
+        delegateEvent(this.main, '.input-edit_list_item', 'keyup', ({target, keyCode}) => {
             if(keyCode === KEYCODES.ESCAPE_KEY) {
                 target.dataset.iscanceled = true;
                 target.blur();
@@ -62,13 +62,13 @@ export default class View {
     }
 
     bindEditItemSave(handler) {
-        delegateEvent(this.main, '.input_edit', 'blur', ({target}) => {
+        delegateEvent(this.main, '.input-edit_list_item', 'blur', ({target}) => {
             if(!target.dataset.iscanceled) {
                 handler(getTargetedItemId(target), target.value.trim());
             }
         }, true);
 
-        delegateEvent(this.main, '.input_edit', 'keypress', ({target, keyCode}) => {
+        delegateEvent(this.main, '.input-edit_list_item', 'keypress', ({target, keyCode}) => {
             if(keyCode === KEYCODES.ENTER_KEY) {
                 target.blur();
             }
@@ -102,7 +102,7 @@ export default class View {
     setEditItem(target) {
         const targetParent = target.parentElement;
         const listItem = targetParent.parentElement;
-        const editInput = createEl('input', {className: 'input_edit', value: target.innerText});
+        const editInput = createEl('input', {className: 'input-edit_list_item', value: target.innerText});
 
         listItem.classList.add('list_item-editing');
 
@@ -113,11 +113,12 @@ export default class View {
     editItemDone(id, title) {
         const listItem = document.getElementById(id);
         const itemContent = qs('.list_item_content', listItem);
-        const editInput = qs('.input_edit', itemContent);
+        const editInput = qs('.input-edit_list_item', itemContent);
         const itemTitle = qs('.list_item_title', itemContent);
 
         listItem.classList.remove('.list_item-editing');
         itemTitle.innerText = title;
+        itemTitle.title = title;
         itemContent.removeChild(editInput);
     }
 
