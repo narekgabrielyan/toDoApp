@@ -1,14 +1,16 @@
 .btn-filter {
   height: 36px;
-  line-height: 36px;
+  min-width: 80px;
   padding: 0 18px;
+  line-height: 36px;
   cursor: pointer;
+  text-align: center;
+  text-transform: capitalize;
   color: #fff;
   transition-property: color, background-color;
   transition-delay: 10ms;
   transition-timing-function: ease-out;
   transition-duration: 120ms;
-  text-transform: capitalize;
   &:not(:last-child) {
     margin-right: 1px;
   }

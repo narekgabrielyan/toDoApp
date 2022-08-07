@@ -7,7 +7,8 @@ export default class Template {
                         <input type="checkbox" class="toggle_item" id="toggle${i.id}" ${i.completed ? 'checked' : ''}>
                         <label for="toggle${i.id}" class="checkbox-toggle_item"></label>
                         <span class="list_item_title" title="${i.title}">${i.title}</span>
-                        <button class="btn-list_item-cancel icon-remove flex align-center justify-center" title="Click to remove"></button>
+                        <button class="btn-list_item btn-list_item-edit icon-edit flex align-center justify-center" title="Click to edit"></button>
+                        <button class="btn-list_item btn-list_item-cancel icon-remove flex align-center justify-center" title="Click to remove"></button>
                     </div>
                 </li>
         `}, '');

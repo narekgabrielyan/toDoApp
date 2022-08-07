@@ -1,9 +1,9 @@
 .toggle_all_wrapper {
   position: absolute;
-  left: 0;
+  left: 8px;
+  top: -72px;
   width: 60px;
   height: 60px;
-  top: -72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,6 +11,9 @@
   .input-toggle_all {
     opacity: 0;
     position: absolute;
+    &:checked + .label-toggle_all {
+      opacity: 1;
+    }
   }
 
   .label-toggle_all {
@@ -22,9 +25,6 @@
     transition-duration: 180ms;
     transition-timing-function: ease-in-out;
     position: relative;
-    &:checked + .label-toggle_all {
-      opacity: 1;
-    }
   }
 }
 

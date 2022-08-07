@@ -11,7 +11,7 @@ export default class View {
         this.clearCompleted = qs('.btn-clear_completed', this.main);
         this.template = template;
 
-        delegateEvent(this.main, '.list_item_title', 'dblclick', ({target}) => {
+        delegateEvent(this.main, '.btn-list_item-edit', 'click', ({target}) => {
             this.setEditItem(target);
         })
     }
@@ -102,7 +102,8 @@ export default class View {
     setEditItem(target) {
         const targetParent = target.parentElement;
         const listItem = targetParent.parentElement;
-        const editInput = createEl('input', {className: 'input-edit_list_item', value: target.innerText});
+        const listTitle = qs('.list_item_title', targetParent);
+        const editInput = createEl('input', {className: 'input-edit_list_item', value: listTitle.innerText});
 
         listItem.classList.add('list_item-editing');
 
