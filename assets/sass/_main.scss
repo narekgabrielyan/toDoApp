@@ -1,6 +1,9 @@
 .main {
   position: relative;
   .items_list_wrapper {
+    @include hideScrollBar;
+    max-height: 300px;
+    overflow: auto;
     padding: 12px;
     border-radius: 16px;
     background-color: #666972;
