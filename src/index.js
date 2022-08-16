@@ -1,8 +1,8 @@
-import Store from './Store';
-import Template from './Template';
-import View from './View';
-import Controller from './Controller';
-import '../assets/sass/all.scss';
+import Store from './js/Store';
+import Template from './js/Template';
+import View from './js/View';
+import Controller from './js/Controller';
+import './sass/all.scss';
 
 const store = new Store('todoList');
 const template = new Template();

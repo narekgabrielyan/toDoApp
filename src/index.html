@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo App</title>
+
+</head>
+<body>
+<div id="root" class="app_wrapper">
+    <header class="header">
+        <h1>Task description</h1>
+        <input class="input-new_item" placeholder="What needs to be done?" autofocus>
+    </header>
+    <section class="main flex flex-column">
+        <div class="toggle_all_wrapper flex align-center justify-center">
+            <input type="checkbox" class="input-toggle_all" id="input-toggle_all">
+            <label for="input-toggle_all" class="label-toggle_all icon-arrow-down pointer" title="Toggle all"></label>
+        </div>
+        <ul class="items_list_wrapper flex flex-column empty"></ul>
+        <footer class="footer_wrapper flex align-center justify-center">
+            <span class="items_count_wrapper flex align-center"></span>
+            <div class="footer_btn_wrapper flex">
+                <a type="button" class="btn-filter btn-filter-active pointer" href="#/">all</a>
+                <a type="button" class="btn-filter pointer" href="#/active">active</a>
+                <a type="button" class="btn-filter pointer" href="#/completed">completed</a>
+            </div>
+            <button class="btn-clear_completed pointer">Clear completed</button>
+        </footer>
+    </section>
+</div>
+</body>
+</html>

@@ -5,12 +5,12 @@ export function createEl(tagName, props = {}) {
     return el;
 }
 
-export function qs(selector, scope) {
-    return (scope || document).querySelector(selector);
+export function qs(selector, scope = document) {
+    return scope.querySelector(selector);
 }
 
-export function qsAll(selector, scope) {
-    return (scope || document).querySelectorAll(selector);
+export function qsAll(selector, scope = document) {
+    return scope.querySelectorAll(selector);
 }
 
 export function getTargetedItemId(target) {
@@ -32,3 +32,7 @@ export function delegateEvent(target, selector, type, handler, capture) {
 
     target.addEventListener(type, dispatchEvent, capture);
 }
+
+export const escapeForHTML = s => s.replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;');
+
+export const escapeForHTMLAttributes = s => s.replace(/'/g, "&apos;").replace(/"/g, "&quot;")

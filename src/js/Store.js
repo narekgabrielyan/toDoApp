@@ -4,48 +4,37 @@ export default class Store {
     constructor(name) {
         const storage = window.localStorage;
 
-        this.getListFromStorage = () => {
+        this.getFromStorage = () => {
             return JSON.parse(storage.getItem(name)) || [];
         }
 
-        this.setListIntoStorage = (list) => {
-            storage.setItem(name, JSON.stringify(list));
+        this.setIntoStorage = (data) => {
+            storage.setItem(name, JSON.stringify(data));
         }
     }
 
     addItem(item, callback) {
-        let todoList = this.getListFromStorage();
+        let todoList = this.getFromStorage();
         todoList.push(item);
-        this.setListIntoStorage(todoList);
-        if(callback) {
-            callback();
-        }
+        this.setIntoStorage(todoList);
+        callback?.();
     }
 
 
     updateItem(updateItem, callback) {
-        const { id } = updateItem;
-        const todoItems = this.getListFromStorage();
-        let i = todoItems.length;
+        const todoItems = this.getFromStorage();
 
-        while(i--) {
-            if(todoItems[i].id === id) {
-                for(let k in updateItem) {
-                    todoItems[i][k] = updateItem[k]
-                }
-                break;
-            }
-        }
+        const todoItemFound = todoItems.find(todoItem => todoItem.id === updateItem.id);
 
-        this.setListIntoStorage(todoItems);
+        if(todoItemFound) Object.assign(todoItemFound, updateItem);
 
-        if(callback) {
-            callback();
-        }
+        this.setIntoStorage(todoItems);
+
+        callback?.();
     }
 
     removeItems(query, callback) {
-        const todos = this.getListFromStorage().filter(i => {
+        const todos = this.getFromStorage().filter(i => {
             for(let k in query) {
                 if(i[k] !== query[k]) {
                     return true;
@@ -54,15 +43,13 @@ export default class Store {
             return false;
         });
 
-        this.setListIntoStorage(todos);
+        this.setIntoStorage(todos);
 
-        if(callback){
-            callback(todos);
-        }
+        callback?.(todos);
     }
 
     filterItems(query, callback) {
-        const itemList = this.getListFromStorage();
+        const itemList = this.getFromStorage();
         const filteredItems = itemList.filter(i => {
             for(let k in query) {
                 if(query[k] !== i[k]) {
