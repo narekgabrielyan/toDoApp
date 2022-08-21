@@ -8,15 +8,17 @@ Native ES6 modules ( without bundlers webpack gulp etc. )
 https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules
 
 ### Architecture
-#### MVC
 
-https://ru.wikipedia.org/wiki/Model-View-Controller
 https://github.com/tastejs/todomvc/tree/master/examples/vanillajs/js
 https://nanojsx.io (createElement alternative)
 SOFTWARE DEVELOPMENT LIFECYCLE
 
 #### READ
 
+- Architecture
+    - [`Domain Driven Design`](https://thedomaindrivendesign.io/developing-the-ubiquitous-language/)
+    - [`MVC`](https://ru.wikipedia.org/wiki/Model-View-Controller)
+    - [`FSD`](https://feature-sliced.design/)
 - Programming
     - [`Imperative vs Declarative programming in JavaScript`](https://medium.com/weekly-webtips/imperative-vs-declarative-programming-in-javascript-25511b90cdb7)
     - [`Low coupling, high cohesion`](https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6)
