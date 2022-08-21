@@ -8,8 +8,6 @@ Native ES6 modules ( without bundlers webpack gulp etc. )
 https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules
 
 ### Architecture
-
-https://github.com/tastejs/todomvc/tree/master/examples/vanillajs/js
 https://nanojsx.io (createElement alternative)
 SOFTWARE DEVELOPMENT LIFECYCLE
 
@@ -18,9 +16,13 @@ SOFTWARE DEVELOPMENT LIFECYCLE
 - Architecture
     - [`Domain Driven Design`](https://thedomaindrivendesign.io/developing-the-ubiquitous-language/)
     - [`MVC`](https://ru.wikipedia.org/wiki/Model-View-Controller)
+      - [`todoMVC`](https://github.com/tastejs/todomvc/tree/master/examples/vanillajs/js)
     - [`FSD`](https://feature-sliced.design/)
+        - [`Feature-Sliced Design на примере TodoApp`](https://feature-sliced.design/ru/docs/get-started/quick-start)
+        - [`Понимание потребностей`](https://feature-sliced.design/ru/docs/concepts/needs-driven)
 - Programming
     - [`Imperative vs Declarative programming in JavaScript`](https://medium.com/weekly-webtips/imperative-vs-declarative-programming-in-javascript-25511b90cdb7)
+    - [`Cohesion and Coupling: the difference`](https://enterprisecraftsmanship.com/posts/cohesion-coupling-difference/)
     - [`Low coupling, high cohesion`](https://medium.com/clarityhub/low-coupling-high-cohesion-3610e35ac4a6)
 - OOP
     - [`The S.O.L.I.D Principles in Pictures`](https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898)
