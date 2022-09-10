@@ -27,6 +27,8 @@ SOFTWARE DEVELOPMENT LIFECYCLE
 - OOP
     - [`The S.O.L.I.D Principles in Pictures`](https://medium.com/backticks-tildes/the-s-o-l-i-d-principles-in-pictures-b34ce2f1e898)
     - [`Separation of concerns`](https://ru.wikipedia.org/wiki/SOLID_(%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D0%B8%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5))
+- Web
+    - [`Server-Side Rendering`](https://www.heavy.ai/technical-glossary/server-side-rendering)
 - JavaScript
     - [`Getting Started with JS Doc`](https://jsdoc.app/)
 - Version Control
