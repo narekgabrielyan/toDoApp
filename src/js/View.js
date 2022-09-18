@@ -117,7 +117,7 @@ export default class View {
         const editInput = qs('.input-edit_list_item', itemContent);
         const itemTitle = qs('.list_item_title', itemContent);
 
-        listItem.classList.remove('.list_item-editing');
+        listItem.classList.remove('list_item-editing');
         itemTitle.innerText = title;
         itemTitle.title = title;
         itemContent.removeChild(editInput);
