@@ -7,5 +7,26 @@
     padding: 12px;
     border-radius: 16px;
     background-color: #666972;
+    position: relative;
+    &--scroll {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 25px;
+      }
+
+      &:before {
+        top: 0;
+        background-image: linear-gradient(to bottom, var(--bodyBg), transparent);
+      }
+
+      &:after {
+        bottom: 0;
+        background-image: linear-gradient(to top, var(--bodyBg), transparent);
+      }
+    }
   }
 }
