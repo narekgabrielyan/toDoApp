@@ -75,6 +75,10 @@ export default class View {
         }, true)
     }
 
+    bindMainScrollingHandler(handler) {
+        this.listWrapper.addEventListener('scroll', (e) => handler(e.target));
+    }
+
     clearNewTodo() {
         this.newTodo.value = '';
     }
@@ -85,6 +89,36 @@ export default class View {
 
     setMainVisibility(visible) {
         this.main.style.display = !!visible ? 'flex' : 'none';
+    }
+
+    setMainScrollingClassName(scrolling) {
+        const scrollClassName = 'main--scrolling';
+        if(scrolling) {
+            this.main.classList.add(scrollClassName);
+        } else if(this.main.className.includes(scrollClassName)) {
+            this.main.classList.remove(scrollClassName);
+        }
+    }
+
+    setListScrollDirectionClass(data) {
+        console.log(data)
+        const {top, bottom} = data;
+        const scrollTopClassName = 'main--scrolling-top';
+        const scrollBottomClassName = 'main--scrolling-bottom';
+        if(top) {
+            this.main.classList.add(scrollTopClassName);
+        } else if(!top) {
+            if(this.main.className.includes(scrollTopClassName)) {
+                this.main.classList.remove(scrollTopClassName);
+            }
+        }
+        if(bottom) {
+            this.main.classList.add(scrollBottomClassName);
+        } else if(!bottom) {
+            if(this.main.className.includes(scrollBottomClassName)) {
+                this.main.classList.remove(scrollBottomClassName);
+            }
+        }
     }
 
     setActiveItemsCount(activeItemsCount) {

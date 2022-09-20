@@ -75,6 +75,10 @@ export default class Controller {
         }
     }
 
+    setListScrollDirection(listWrapper) {
+        this.view.setListScrollDirectionClass({top: listWrapper.scrollTop >= 25, bottom: listWrapper.scrollHeight - listWrapper.clientHeight - listWrapper.scrollTop >= 25});
+    }
+
     filter(force) {
         const route = this.activeRoute;
 
@@ -86,6 +90,8 @@ export default class Controller {
             this.view.setActiveItemsCount(active);
             this.view.setMainVisibility(total);
             this.view.setClearCompletedBtnVisibility(completed);
+            this.view.setMainScrollingClassName(total > 4);
+            this.view.bindMainScrollingHandler(this.setListScrollDirection.bind(this));
         });
 
         this.lastActiveRoute = route;

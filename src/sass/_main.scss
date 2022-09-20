@@ -1,5 +1,40 @@
 .main {
   position: relative;
+
+  &--scrolling {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      opacity: 0;
+      transition: opacity 180ms ease-out;
+      z-index: 9;
+    }
+
+    &:before {
+      top: 0;
+      background-image: linear-gradient(to bottom, var(--bodyBg), transparent);
+    }
+
+    &:after {
+      bottom: 72px;
+      background-image: linear-gradient(to top, var(--bodyBg), transparent);
+    }
+    &-top {
+      &:before {
+        opacity: 1;
+      }
+    }
+    &-bottom {
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
   .items_list_wrapper {
     @include hideScrollBar;
     max-height: 300px;
