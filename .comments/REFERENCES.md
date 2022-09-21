@@ -52,7 +52,6 @@ SOFTWARE DEVELOPMENT LIFECYCLE
 
 #### TASKS
 * Backend https://sg-task-app.herokuapp.com
-* Run performance test for TodoMVC implementation and Varuzh's implementation. (for example here https://jsbench.me/ )
 * Change Implementation of View.js to work with ES Template literals ( reference https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Template_literals )
 * Architecture
   * https://profy.dev/article/react-folder-structure
@@ -76,6 +75,8 @@ SOFTWARE DEVELOPMENT LIFECYCLE
     
     tag`<button onClick=${foo}> Click Me </button>`;
   ```
+
+* (Done!) Run performance test for TodoMVC implementation and Varuzh's implementation. (for example here https://jsbench.me/ )
   
 #### History
 * https://backbonejs.org/
