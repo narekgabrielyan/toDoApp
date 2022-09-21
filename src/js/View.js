@@ -101,7 +101,6 @@ export default class View {
     }
 
     setListScrollDirectionClass(data) {
-        console.log(data)
         const {top, bottom} = data;
         const scrollTopClassName = 'main--scrolling-top';
         const scrollBottomClassName = 'main--scrolling-bottom';
