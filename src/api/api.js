@@ -9,11 +9,6 @@ let rawCreate = JSON.stringify({
     "password": "thecrownprince"
 });
 
-let rawLogin = JSON.stringify({
-    "email": "nargabrielyan@mail.ru",
-    "password": "thecrownprince"
-});
-
 let raw = JSON.stringify({
     "email": "animastemail@mail.ru"
 });
@@ -25,8 +20,8 @@ let requestOptions = {
     body: raw,
     redirect: 'follow'
 };
-
-fetch("https://sg-task-app.herokuapp.com/users/me", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+//
+// fetch("https://sg-task-app.herokuapp.com/users/me", requestOptions)
+//     .then(response => response.text())
+//     .then(result => console.log(result))
+//     .catch(error => console.log('error', error));
