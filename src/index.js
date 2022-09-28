@@ -13,3 +13,5 @@ const setView = () => controller.setView(document.location.hash);
 
 window.addEventListener('load', setView);
 window.addEventListener('hashchange', setView);
+
+import './api/api';
