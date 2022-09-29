@@ -44,7 +44,8 @@ SOFTWARE DEVELOPMENT LIFECYCLE
 - npm
     - [`npm vs npx — What’s the Difference?`](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/)
     - [`npm global or local packages`](https://nodejs.dev/learn/npm-global-or-local-packages)
-
+- backEnd
+  - [`How to log out when using JWT`](https://medium.com/devgorilla/how-to-log-out-when-using-jwt-a8c7823e8a6)
 
 #### JavaScript Gotchas
 
