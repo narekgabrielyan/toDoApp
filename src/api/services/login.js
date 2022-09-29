@@ -17,6 +17,9 @@ let requestOptions = {
 export const getUserLogIn = () => {
     fetch("https://sg-task-app.herokuapp.com/users/login", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            const loginInfo = JSON.stringify(JSON.parse(result));
+            localStorage.setItem('loginInfo', loginInfo);
+        })
         .catch(error => console.log('error', error));
 }
