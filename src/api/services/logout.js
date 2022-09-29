@@ -3,7 +3,7 @@ export const getUserLogOut = () => {
 
     const myHeaders = new Headers();
     const token = JSON.parse(localStorage.getItem('loginInfo'))?.['token'];
-    console.log('token on logout - - - - ', token)
+    localStorage.removeItem('loginInfo');
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     let requestOptions = {

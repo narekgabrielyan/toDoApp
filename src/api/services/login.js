@@ -17,7 +17,6 @@ export const getUserLogIn = () => {
     fetch("https://sg-task-app.herokuapp.com/users/login", requestOptions)
         .then(response => response.text())
         .then(result => {
-            console.log('token on login - - - ', JSON.parse(result)?.['token']);
             const loginInfo = JSON.stringify(JSON.parse(result));
             localStorage.setItem('loginInfo', loginInfo);
         })
