@@ -18,7 +18,6 @@ export const getUserLogIn = (username, password, handler) => {
         .then(response => response.text())
         .then(result => {
             const parsedResult = JSON.parse(result);
-            parsedResult.loginStatus = 1;
             const loginInfo = JSON.stringify(parsedResult);
             localStorage.setItem('loginInfo', loginInfo);
         })
