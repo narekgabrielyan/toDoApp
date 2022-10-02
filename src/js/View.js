@@ -9,6 +9,7 @@ export default class View {
         this.main = qs('.main');
         this.activeCount = qs('.items_count_wrapper', this.main);
         this.clearCompleted = qs('.btn-clear_completed', this.main);
+        this.logoutBtn = qs('.btn-logout');
         this.template = template;
 
         delegateEvent(this.main, '.btn-list_item-edit', 'click', ({target}) => {
@@ -147,5 +148,9 @@ export default class View {
         }
 
         this.listWrapper.removeChild(item);
+    }
+
+    bindLogOutAction(handler) {
+        this.logoutBtn.addEventListener('click', handler);
     }
 }

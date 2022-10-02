@@ -1,4 +1,5 @@
 import {QUERIES} from "./constants";
+import {getUserLogOut} from "../api/services/logout";
 
 export default class Controller {
     constructor(view, store) {
@@ -17,6 +18,7 @@ export default class Controller {
         view.bindToggleAll(this.toggleAll.bind(this));
         view.bindEditItemCancel(this.editItemCancel.bind(this));
         view.bindEditItemSave(this.editItemSave.bind(this));
+        view.bindLogOutAction(this.logOutUser);
     }
 
     setView(href) {
@@ -93,5 +95,11 @@ export default class Controller {
 
     clearCompletedItems() {
         this.store.removeItems(QUERIES.completed, () => this.filter(true));
+    }
+
+    logOutUser() {
+        const loginToken = JSON.parse(localStorage.getItem('loginInfo'))?.['token'];
+        localStorage.removeItem('loginInfo');
+        getUserLogOut(loginToken);
     }
 }

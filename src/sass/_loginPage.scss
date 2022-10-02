@@ -1,6 +1,8 @@
 .login_form {
   display: flex;
   flex-direction: column;
+  width: 280px;
+  margin: auto;
 
   label {
     font-size: 12px;
@@ -38,9 +40,4 @@
     font-size: 14px;
     font-weight: 400;
   }
-
-  .logout_btn {
-    background-color: #e74c3c;
-  }
-
 }

@@ -1,10 +1,31 @@
-.header {
-  padding: 0 8px;
-  margin-bottom: 12px;
+header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 120px;
 
-  h1 {
-    padding: 0 16px;
-    margin-bottom: 8px;
-    color: #333;
+  .user_info {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .button {
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border: 0;
+    outline: 0;
+    color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 8px;
+  }
+
+  .btn-logout {
+    color: #fff;
+    background-color: #e74c3c;
   }
 }

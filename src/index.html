@@ -7,26 +7,33 @@
 </head>
 <body>
 <div id="root" class="app_wrapper">
-    <header class="header">
-        <h1>Task description</h1>
-        <input class="input-new_item" placeholder="What needs to be done?" autofocus>
+    <header>
+        <div id="user_name" class="user_info"></div>
+        <button id="btn-edit-profile" class="button btn-edit_profile">Edit profile</button>
+        <button id="btn-logout" class="button btn-logout" >Log out</button>
     </header>
-    <section class="main flex flex-column">
-        <div class="toggle_all_wrapper flex align-center justify-center">
-            <input type="checkbox" class="input-toggle_all" id="input-toggle_all">
-            <label for="input-toggle_all" class="label-toggle_all icon-arrow-down pointer" title="Toggle all"></label>
-        </div>
-        <ul class="items_list_wrapper flex flex-column empty"></ul>
-        <footer class="footer_wrapper flex align-center justify-center">
-            <span class="items_count_wrapper flex align-center"></span>
-            <div class="footer_btn_wrapper flex">
-                <a type="button" class="btn-filter btn-filter-active pointer" href="#/">all</a>
-                <a type="button" class="btn-filter pointer" href="#/active">active</a>
-                <a type="button" class="btn-filter pointer" href="#/completed">completed</a>
+    <main>
+        <section class="header_section">
+            <h1>Task description</h1>
+            <input class="input-new_item" placeholder="What needs to be done?" autofocus>
+        </section>
+        <section class="main flex flex-column">
+            <div class="toggle_all_wrapper flex align-center justify-center">
+                <input type="checkbox" class="input-toggle_all" id="input-toggle_all">
+                <label for="input-toggle_all" class="label-toggle_all icon-arrow-down pointer" title="Toggle all"></label>
             </div>
-            <button class="btn-clear_completed pointer">Clear completed</button>
-        </footer>
-    </section>
+            <ul class="items_list_wrapper flex flex-column empty"></ul>
+            <footer class="footer_wrapper flex align-center justify-center">
+                <span class="items_count_wrapper flex align-center"></span>
+                <div class="footer_btn_wrapper flex">
+                    <a type="button" class="btn-filter btn-filter-active pointer" href="#/">all</a>
+                    <a type="button" class="btn-filter pointer" href="#/active">active</a>
+                    <a type="button" class="btn-filter pointer" href="#/completed">completed</a>
+                </div>
+                <button class="btn-clear_completed pointer">Clear completed</button>
+            </footer>
+        </section>
+    </main>
 </div>
 </body>
 </html>
