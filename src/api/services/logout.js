@@ -1,9 +1,7 @@
 
-export const getUserLogOut = () => {
+export const getUserLogOut = (token) => {
 
     const myHeaders = new Headers();
-    const token = JSON.parse(localStorage.getItem('loginInfo'))?.['token'];
-    localStorage.removeItem('loginInfo');
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     let requestOptions = {
