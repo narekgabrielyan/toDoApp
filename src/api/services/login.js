@@ -1,4 +1,4 @@
-export const getUserLogIn = (username, password) => {
+export const getUserLogIn = (username, password, handler) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -17,7 +17,9 @@ export const getUserLogIn = (username, password) => {
     fetch("https://sg-task-app.herokuapp.com/users/login", requestOptions)
         .then(response => response.text())
         .then(result => {
-            const loginInfo = JSON.stringify(JSON.parse(result));
+            const parsedResult = JSON.parse(result);
+            parsedResult.loginStatus = 1;
+            const loginInfo = JSON.stringify(parsedResult);
             localStorage.setItem('loginInfo', loginInfo);
         })
         .catch(error => console.log('error', error));
