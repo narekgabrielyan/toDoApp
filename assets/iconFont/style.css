@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconFont';
-  src:  url('fonts/iconFont.eot?rgswal');
-  src:  url('fonts/iconFont.eot?rgswal#iefix') format('embedded-opentype'),
-    url('fonts/iconFont.ttf?rgswal') format('truetype'),
-    url('fonts/iconFont.woff?rgswal') format('woff'),
-    url('fonts/iconFont.svg?rgswal#iconFont') format('svg');
+  src:  url('fonts/iconFont.eot?950suh');
+  src:  url('fonts/iconFont.eot?950suh#iefix') format('embedded-opentype'),
+    url('fonts/iconFont.ttf?950suh') format('truetype'),
+    url('fonts/iconFont.woff?950suh') format('woff'),
+    url('fonts/iconFont.svg?950suh#iconFont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-edit-profile:before {
+  content: "\e902";
+}
+.icon-login:before {
+  content: "\e903";
+}
+.icon-logout:before {
+  content: "\e904";
+}
 .icon-edit:before {
   content: "\e901";
 }
