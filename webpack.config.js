@@ -11,8 +11,13 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
-        })
+            template: 'src/index.html',
+            filename: 'index.html',
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/login.html',
+            filename: 'login.html',
+        }),
     ],
     devServer: {
         static: './dist',
