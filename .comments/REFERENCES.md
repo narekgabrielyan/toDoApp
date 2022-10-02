@@ -77,10 +77,11 @@ SOFTWARE DEVELOPMENT LIFECYCLE
     tag`<button onClick=${foo}> Click Me </button>`;
   ```
 
-* (Done!) Run performance test for TodoMVC implementation and Varuzh's implementation. (for example here https://jsbench.me/ )
+* **(Done!)** - Run performance test for TodoMVC implementation and Varuzh's implementation. (for example here https://jsbench.me/ )
   
 #### History
 * https://backbonejs.org/
 * https://emberjs.com/
 
 #### Questions
+1. How to generate /login but not /login.html
