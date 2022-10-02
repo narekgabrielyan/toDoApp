@@ -1,10 +1,10 @@
-export const getUserLogIn = () => {
+export const getUserLogIn = (username, password) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-        "email": "nargabrielyan@mail.ru",
-        "password": "thecrownprince"
+        "email": username,
+        "password": password
     });
 
     let requestOptions = {

@@ -20,8 +20,3 @@ let requestOptions = {
     body: raw,
     redirect: 'follow'
 };
-//
-// fetch("https://sg-task-app.herokuapp.com/users/me", requestOptions)
-//     .then(response => response.text())
-//     .then(result => console.log(result))
-//     .catch(error => console.log('error', error));
