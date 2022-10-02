@@ -15,9 +15,9 @@ const generateLoginLogic = () => {
 
 const renderAppPage = () => {
     const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-    if(!loginInfo || loginInfo['loginState'] !== 1) {
+    if(!loginInfo || loginInfo['loginStatus'] !== 1) {
         if(window.location.pathname !== '/login.html') {
-            window.location.replace('http://localhost:8080/login.html');
+            window.location.href = '/login.html';
         }
         generateLoginLogic();
     } else {
