@@ -4,17 +4,33 @@ import View from './js/View';
 import Controller from './js/Controller';
 import './sass/all.scss';
 import {getUserLogIn} from "./api/services/login";
-import {getUserLogOut} from "./api/services/logout";
 
-const store = new Store('todoList');
-const template = new Template();
-const view = new View(template);
-const controller = new Controller(view, store);
+const generateLoginLogic = () => {
+    document.getElementById('login_btn').addEventListener('click', () => {
+        const username = document.forms['loginForm']['username'].value;
+        const password = document.forms['loginForm']['password'].value;
+        getUserLogIn(username, password);
+    })
+}
 
-const setView = () => controller.setView(document.location.hash);
+const renderAppPage = () => {
+    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    if(!loginInfo || loginInfo['loginState'] !== 1) {
+        if(window.location.pathname !== '/login.html') {
+            window.location.replace('http://localhost:8080/login.html');
+        }
+        generateLoginLogic();
+    } else {
+        const store = new Store('todoList');
+        const template = new Template();
+        const view = new View(template);
+        const controller = new Controller(view, store);
 
-window.addEventListener('load', setView);
-window.addEventListener('hashchange', setView);
+        const setView = () => controller.setView(document.location.hash);
 
-document.querySelector('.login_btn').addEventListener('click', getUserLogIn);
-document.querySelector('.logout_btn').addEventListener('click', getUserLogOut);
+        window.addEventListener('load', setView);
+        window.addEventListener('hashchange', setView);
+    }
+}
+
+renderAppPage();
