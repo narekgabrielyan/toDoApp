@@ -10,11 +10,13 @@ export default class View {
         this.activeCount = qs('.items_count_wrapper', this.main);
         this.clearCompleted = qs('.btn-clear_completed', this.main);
         this.logoutBtn = qs('.btn-logout');
+        this.userName = qs('#user_name');
         this.template = template;
 
         delegateEvent(this.main, '.btn-list_item-edit', 'click', ({target}) => {
             this.setEditItem(target);
         })
+        this.setUserName();
     }
 
     bindAddItem(callback) {
@@ -140,6 +142,10 @@ export default class View {
         itemCheckbox.checked = completed;
     }
 
+    setUserName() {
+        this.userName.innerText = JSON.parse(localStorage.getItem('userInfo')).name;
+    }
+
     removeItem(id) {
         const item = document.getElementById(id);
 
@@ -152,5 +158,9 @@ export default class View {
 
     bindLogOutAction(handler) {
         this.logoutBtn.addEventListener('click', handler);
+    }
+
+    bindEditProfileAction(handler) {
+
     }
 }
