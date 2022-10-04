@@ -1,15 +1,14 @@
 import {QUERIES} from "./constants";
+import {getDataFromLocalStorage, setDataToLocalStorage} from "./utils";
 
 export default class Store {
     constructor(name) {
-        const storage = window.localStorage;
-
         this.getFromStorage = () => {
-            return JSON.parse(storage.getItem(name)) || [];
+            return getDataFromLocalStorage(name) || [];
         }
 
         this.setIntoStorage = (data) => {
-            storage.setItem(name, JSON.stringify(data));
+            setDataToLocalStorage(name, data);
         }
     }
 
