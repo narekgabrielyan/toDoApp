@@ -1,3 +1,5 @@
+import {getUserInfo} from "./getUserInfo";
+
 export const getUserLogIn = (username, password, handler) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -18,8 +20,10 @@ export const getUserLogIn = (username, password, handler) => {
         .then(response => response.text())
         .then(result => {
             const parsedResult = JSON.parse(result);
+            const {token} = parsedResult;
             const loginInfo = JSON.stringify(parsedResult);
             localStorage.setItem('loginInfo', loginInfo);
+            getUserInfo(token);
         })
         .catch(error => console.log('error', error));
 }
