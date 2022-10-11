@@ -1,4 +1,4 @@
-export const getUserLogIn = (username, password, callback) => {
+export const getUserLoggedIn = (username, password, callback) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
