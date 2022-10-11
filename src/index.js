@@ -3,13 +3,13 @@ import Template from './js/Template';
 import View from './js/View';
 import Controller from './js/Controller';
 import './sass/all.scss';
-import {getUserLogIn} from "./api/services/login";
+import {getUserLoggedIn} from "./api/services/login";
 
 const generateLoginLogic = () => {
     document.getElementById('login_btn').addEventListener('click', () => {
         const username = document.forms['loginForm']['username'].value;
         const password = document.forms['loginForm']['password'].value;
-        getUserLogIn(username, password, (result) => {
+        getUserLoggedIn(username, password, (result) => {
             localStorage.setItem('sessionData', result);
         });
     })
