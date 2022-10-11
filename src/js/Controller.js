@@ -1,5 +1,5 @@
 import {QUERIES} from "./constants";
-import {getUserLogOut} from "../api/services/logout";
+import {getUserLoggedOut} from "../api/services/logout";
 
 export default class Controller {
     constructor(view, store) {
@@ -98,8 +98,8 @@ export default class Controller {
     }
 
     logOutUser() {
-        const loginToken = JSON.parse(localStorage.getItem('loginInfo'))?.['token'];
-        localStorage.removeItem('loginInfo');
-        getUserLogOut(loginToken);
+        const token = JSON.parse(localStorage.getItem('sessionData')).token;
+        localStorage.removeItem('sessionData');
+        getUserLoggedOut(token);
     }
 }

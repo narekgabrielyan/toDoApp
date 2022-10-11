@@ -143,7 +143,7 @@ export default class View {
     }
 
     setUserName() {
-        this.userName.innerText = JSON.parse(localStorage.getItem('userInfo')).name;
+        this.userName.innerText = JSON.parse(localStorage.getItem('sessionData')).user.name;
     }
 
     removeItem(id) {
@@ -158,9 +158,5 @@ export default class View {
 
     bindLogOutAction(handler) {
         this.logoutBtn.addEventListener('click', handler);
-    }
-
-    bindEditProfileAction(handler) {
-
     }
 }
