@@ -43,4 +43,8 @@ export function delegateEvent(target, selector, type, handler, capture) {
 
 export const escapeForHTML = s => s.replace(/[&<]/g, c => c === '&' ? '&amp;' : '&lt;');
 
-export const escapeForHTMLAttributes = s => s.replace(/'/g, "&apos;").replace(/"/g, "&quot;")
+export const escapeForHTMLAttributes = s => s.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+
+export const changeLocationTo = (href) => window.location.href = href;
+
+export const onReloadPage = () => window.location.reload();

@@ -1,5 +1,6 @@
 import {QUERIES} from "./constants";
 import {getUserLoggedOut} from "../api/services/logout";
+import {onReloadPage} from "./utils";
 
 export default class Controller {
     constructor(view, store) {
@@ -18,7 +19,7 @@ export default class Controller {
         view.bindToggleAll(this.toggleAll.bind(this));
         view.bindEditItemCancel(this.editItemCancel.bind(this));
         view.bindEditItemSave(this.editItemSave.bind(this));
-        view.bindLogOutAction(this.logOutUser);
+        view.bindLogOutAction(this.onEndSession);
     }
 
     setView(href) {
@@ -97,9 +98,9 @@ export default class Controller {
         this.store.removeItems(QUERIES.completed, () => this.filter(true));
     }
 
-    logOutUser() {
+    onEndSession() {
         const token = JSON.parse(localStorage.getItem('sessionData')).token;
         localStorage.removeItem('sessionData');
-        getUserLoggedOut(token);
+        getUserLoggedOut(token, onReloadPage);
     }
 }

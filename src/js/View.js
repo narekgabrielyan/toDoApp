@@ -127,8 +127,11 @@ export default class View {
     }
 
     updateFooterButtons(route) {
-        qs('.btn-filter.btn-filter-active', this.main).classList.remove('btn-filter-active');
-        qs(`.btn-filter[href="#/${route}"]`, this.main).classList.add('btn-filter-active');
+        const activeBtn = qs('.btn-filter.btn-filter-active', this.main);
+        const newActiveBtn = qs(`.btn-filter[href="#/${route}"]`, this.main);
+
+        activeBtn.classList.remove('btn-filter-active');
+        newActiveBtn.classList.add('btn-filter-active');
     }
 
     setItemCompleted(id, completed) {
