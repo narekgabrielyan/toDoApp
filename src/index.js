@@ -9,18 +9,21 @@ const generateLoginLogic = () => {
     document.getElementById('login_btn').addEventListener('click', () => {
         const username = document.forms['loginForm']['username'].value;
         const password = document.forms['loginForm']['password'].value;
-        getUserLogIn(username, password);
+        getUserLogIn(username, password, (result) => {
+            localStorage.setItem('sessionData', result);
+        });
     })
 }
 
 const renderAppPage = () => {
-    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
-    if(!loginInfo) {
+    const token = JSON.parse(localStorage.getItem('sessionData'))?.token;
+    if(!token) {
         if(window.location.pathname !== '/login.html') {
             window.location.href = '/login.html';
         }
         generateLoginLogic();
     } else {
+        window.location.href = '/#/'
         const store = new Store('todoList');
         const template = new Template();
         const view = new View(template);
