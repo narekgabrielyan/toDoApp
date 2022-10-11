@@ -1,4 +1,4 @@
-export const getUserLoggedOut = (token) => {
+export const getUserLoggedOut = (token, callback) => {
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -11,6 +11,10 @@ export const getUserLoggedOut = (token) => {
 
     fetch("https://sg-task-app.herokuapp.com/users/logout", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            if(callback) {
+                callback(result)
+            }
+        })
         .catch(error => console.log('error', error));
 }
