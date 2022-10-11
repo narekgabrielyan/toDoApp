@@ -1,5 +1,4 @@
-
-export const getUserLogOut = (token) => {
+export const getUserLoggedOut = (token) => {
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
