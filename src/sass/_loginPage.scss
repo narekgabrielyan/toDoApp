@@ -4,6 +4,11 @@
   width: 280px;
   margin: auto;
 
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
   label {
     font-size: 12px;
     font-weight: 400;
