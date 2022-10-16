@@ -1,6 +1,6 @@
-import { QUERIES } from './constants';
+import { PAGE_PATHS, QUERIES } from './constants';
 import { getUserLoggedOut } from '../api/services/logout';
-import { onReloadPage } from './utils';
+import { changeLocationTo, onReloadPage } from './utils';
 
 export default class Controller {
   constructor(view, store) {
@@ -20,6 +20,7 @@ export default class Controller {
     view.bindEditItemCancel(this.editItemCancel.bind(this));
     view.bindEditItemSave(this.editItemSave.bind(this));
     view.bindLogOutAction(this.onEndSession);
+    view.bindEditProfileAction(this.onEditProfile);
   }
 
   setView(href) {
@@ -114,5 +115,9 @@ export default class Controller {
     const token = JSON.parse(localStorage.getItem('userData')).token;
     localStorage.removeItem('userData');
     getUserLoggedOut(token, onReloadPage);
+  }
+
+  onEditProfile() {
+    changeLocationTo(PAGE_PATHS.ACCOUNT);
   }
 }

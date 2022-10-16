@@ -10,6 +10,7 @@ export default class View {
     this.activeCount = qs('.items_count_wrapper', this.main);
     this.clearCompleted = qs('.btn-clear_completed', this.main);
     this.logoutBtn = qs('.btn-logout');
+    this.editProfileBtn = qs('.btn-edit_profile');
     this.userName = qs('#user_name');
     this.template = template;
 
@@ -184,5 +185,9 @@ export default class View {
 
   bindLogOutAction(handler) {
     this.logoutBtn.addEventListener('click', handler);
+  }
+
+  bindEditProfileAction(handler) {
+    this.editProfileBtn.addEventListener('click', handler);
   }
 }
