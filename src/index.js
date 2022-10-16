@@ -30,7 +30,7 @@ const onLogin = () => {
   });
 };
 
-const renderAppPage = () => {
+const renderApp = () => {
   const token = JSON.parse(localStorage.getItem('userData'))?.token;
   if (!token) {
     if (window.location.pathname !== PAGE_PATHS.LOGIN) {
@@ -38,17 +38,22 @@ const renderAppPage = () => {
     }
     document.getElementById('login_btn').addEventListener('click', onLogin);
   } else {
-    changeLocationTo(PAGE_PATHS.INDEX);
-    const store = new Store('todoList');
-    const template = new Template();
-    const view = new View(template);
-    const controller = new Controller(view, store);
+    if (window.location.pathname === PAGE_PATHS.LOGIN) {
+      debugger;
+      changeLocationTo(PAGE_PATHS.INDEX);
+    }
+    if (window.location.pathname === PAGE_PATHS.INDEX) {
+      const store = new Store('todoList');
+      const template = new Template();
+      const view = new View(template);
+      const controller = new Controller(view, store);
 
-    const setView = () => controller.setView(document.location.hash);
+      const setView = () => controller.setView(document.location.hash);
 
-    window.addEventListener('load', setView);
-    window.addEventListener('hashchange', setView);
+      window.addEventListener('load', setView);
+      window.addEventListener('hashchange', setView);
+    }
   }
 };
 
-renderAppPage();
+window.addEventListener('load', renderApp);

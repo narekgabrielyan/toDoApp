@@ -60,3 +60,7 @@ export function outsideClickHandler(target, callbackFn) {
   };
   window.addEventListener('click', handler);
 }
+
+export function isUserLoggedIn() {
+  return !!JSON.parse(localStorage.getItem('userData'))?.token;
+}
