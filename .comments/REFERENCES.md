@@ -31,6 +31,7 @@ SOFTWARE DEVELOPMENT LIFECYCLE
     - [`Server-Side Rendering`](https://www.heavy.ai/technical-glossary/server-side-rendering)
 - JavaScript
     - [`Getting Started with JS Doc`](https://jsdoc.app/)
+    - [`Implementing Simple SPA Routing Using Vanilla JavaScript`](https://medium.com/altcampus/implementing-simple-spa-routing-using-vanilla-javascript-53abe399bf3c)
 - Version Control
   - [`Version Control Systems`](https://www.geeksforgeeks.org/version-control-systems/)
   - [`Conventional Commits`](https://www.conventionalcommits.org/en/v1.0.0/)
